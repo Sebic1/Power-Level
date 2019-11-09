@@ -12,8 +12,8 @@
       </p>
     </header>
     <main>
-      <p>
-        <script> document.write(armyCount) </script>
+      <p id="display">
+        <script> document.getElementById("display").innerHTML = armyCount; </script>
         <button onclick="clickTrain();" class="buyButton">Click to Recruit!</button>
       </p>
     </main>
