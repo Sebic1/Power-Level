@@ -5,6 +5,11 @@ var lastPowerUpdate = power
 var diff = 0
 var L1TierCount = 4
 var L1TierReset = 0
+var tickSpeedCost = 1000000
+var tickMult = 1
+var tickIncrement = 1.10
+var pageCount = 2
+var L1empowerLevel = 0
 
 //Gen init
 function GeneratorL1Init() {
@@ -14,7 +19,8 @@ function GeneratorL1Init() {
       bought: 0,
       amount: 0,
       mult: 1,
-      production: Math.pow(10, (i * 1.75))
+      production: Math.pow(10, (i * 1.75)),
+      autobuy: false
     }
     document.getElementById("gen" + (i + 1)).classList.remove("TLocked")
     generatorsL1.push(generator)
@@ -22,6 +28,7 @@ function GeneratorL1Init() {
 }
 GeneratorL1Init()
 
+//Gen Level 1 Reset
 function GeneratorL1Reset() {
   for (let i = 0; i < L1TierCount; i++ ){
     generatorsL1[i].amount = 0
@@ -41,6 +48,14 @@ function format(amount) {
   return mantissa.toFixed(2) + "e" + power
 }
 
+//Pages
+function gotoPage(i) {
+  for (let a = 1; a <= pageCount; a++ ){
+    document.getElementsByClassName("page" + a).classList.add("hidden")
+  }
+  document.getElementsByClassName("page" + i).classList.remove("hidden")
+}
+
 //Gen buying
 function buyGenerator(i) {
   let g = generatorsL1[i - 1]
@@ -52,6 +67,21 @@ function buyGenerator(i) {
   g.cost *= 1.5
 }
 
+//Tick speed buying
+function buyTickSpeed() {
+  if (tickSpeedCost > power) return
+  power -= tickSpeedCost
+  tickMult *= tickIncrement
+  tickSpeedCost *= 10
+}
+
+//Tick reset
+function tickReset() {
+  tickSpeedCost = 1000000
+  tickIncrement = 1.10
+  tickMult = 1
+}
+
 //L1 Reset
 function L1Reset() {
   if (generatorsL1[L1TierCount - 1].amount < 20) return
@@ -59,20 +89,51 @@ function L1Reset() {
   power = 10
   GeneratorL1Init()
   GeneratorL1Reset()
+  tickReset()
   L1TierReset += 1
   for (let i = 0; i < L1TierCount; i++) {
     generatorsL1[i].mult *= Math.pow(2, L1TierReset)
   }
 }
 
+//L1 Empower
+function L1Empower() {
+  if (generatorsL1[L1empowerLevel + 3].amount < 50) return
+  L1empowerLevel +=1
+  power = 10
+  GeneratorL1Init()
+  GeneratorL1Reset()
+  tickReset()
+  generatorsL1[L1empowerLevel].mult *= 3
+  generatorsL1[L1empowerLevel].autobuy = true
+}
+
+//Autobuying
+function AutoBuy() {
+  for (let i = 0; i < L1TierCount; i++ ){
+    if (generatorsL1[i].autobuy == true)
+    buyGenerator(i)
+  }
+}
+
 //Updating GUI
 function updateGUI() {
+  // Updating Power
   document.getElementById("currency").textContent = "You have " + format(power) + " power"
+  // Updation Power per second
   document.getElementById("currencyPS").textContent = "You gain " + format((power - lastPowerUpdate) * diff * 400) + " power per second"
+  document.getElementById("tickSpeedButton").innerHTML = "Buy to speed up your game by " + tickIncrement + "x<br>Cost: " + format(tickSpeedCost) + "<br>Currently " + format(tickMult) + "x faster"
+  if (power < tickSpeedCost) { document.getElementById("tickSpeedButton").classList.add("locked") }
+  else { document.getElementById("tickSpeedButton").classList.remove("locked") }
+  document.getElementById("L1ResetButton").innerHTML = "Reset Level 1 to gain:<br>New Tier and 2x mult<br>Requires:<br>20 Tier " + L1TierCount + "s"
   if (generatorsL1[L1TierCount - 1].amount < 20) { document.getElementById("L1ResetButton").classList.add("locked") }
   else { document.getElementById("L1ResetButton").classList.remove("locked") }
-  document.getElementById("L1ResetButton").innerHTML = "Reset Level 1 to gain:<br>New Tier and 2x mult<br>Requires:<br>20 Tier " + L1TierCount + "s"
+  if (L1TierReset > 0) document.getElementById("L1EmpowerButton").classList.remove("hidden")
+  document.getElementById("L1EmpowerButton").innerHTML = "Reset game to Empower Tier " + (L1empowerLevel + 1) + " and gain:<br>An autobuyer and 3x mult on Tier " + (L1empowerLevel + 1) + "<br>Requires:<br> 50 Tier " + (L1empowerLevel + 4) + "s"
+  if (generatorsL1[L1empowerLevel + 3].amount < 50) { document.getElementById("L1EmpowerButton").classList.add("locked") }
+  else { document.getElementById("L1EmpowerButton").classList.remove("locked") }
   for (let i = 0; i < L1TierCount; i++) {
+    //Updating Generators
     let g = generatorsL1[i]
     document.getElementById("gen" + (i + 1)).innerHTML = "Generator Tier " + (i + 1) + "<br>Amount: " + format(g.amount) + "<br>Bought: " + g.bought + "<br>Mult: " + format(g.mult) + "x<br>Cost: " + format(g.cost) + "<br>Production: " + format(g.production)
     if (g.cost > power) document.getElementById("gen" + (i + 1)).classList.add("locked")
@@ -82,7 +143,7 @@ function updateGUI() {
 
 function productionLoop(diff) {
   for (let i = 0; i < L1TierCount; i++) {
-    power += generatorsL1[i].amount * generatorsL1[i].mult * generatorsL1[i].production * diff
+    power += generatorsL1[i].amount * generatorsL1[i].mult * generatorsL1[i].production * diff * tickMult
   }
 }
 /*  \/ ORIGINAL CODE \/
