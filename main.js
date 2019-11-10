@@ -10,6 +10,36 @@ var tickMult = 1
 var tickIncrement = 1.10
 var pageCount = 2
 var L1empowerLevel = 0
+var saveTimer = 0
+
+function load() {
+  power = JSON.parse(localStorage.getItem('power'));
+  generatorsL1 = JSON.parse(localStorage.getItem('generatorsL1'));
+  lastUpdate = JSON.parse(localStorage.getItem('lastUpdate'));
+  lastPowerUpdate = JSON.parse(localStorage.getItem('lastPowerUpdate'));
+  diff = JSON.parse(localStorage.getItem('diff'));
+  L1TierCount = JSON.parse(localStorage.getItem('L1TierCount'));
+  L1TierReset = JSON.parse(localStorage.getItem('L1TierReset'));
+  tickSpeedCost = JSON.parse(localStorage.getItem('tickSpeedCost'));
+  tickMult = JSON.parse(localStorage.getItem('tickMult'));
+  tickIncrement = JSON.parse(localStorage.getItem('tickIncrement'));
+  L1empowerLevel = JSON.parse(localStorage.getItem('L1empowerLevel'));
+}
+load()
+
+function autoSave() {
+  localStorage.setItem('power', JSON.stringify(power));
+  localStorage.setItem('generatorsL1', JSON.stringify(generatorsL1));
+  localStorage.setItem('lastUpdate', JSON.stringify(lastUpdate));
+  localStorage.setItem('lastPowerUpdater', JSON.stringify(lastPowerUpdate));
+  localStorage.setItem('diff', JSON.stringify(diff));
+  localStorage.setItem('L1TierCount', JSON.stringify(L1TierCount));
+  localStorage.setItem('L1TierReset', JSON.stringify(L1TierReset));
+  localStorage.setItem('tickSpeedCost', JSON.stringify(tickSpeedCost));
+  localStorage.setItem('tickMult', JSON.stringify(tickMult));
+  localStorage.setItem('tickIncrement', JSON.stringify(tickIncrement));
+  localStorage.setItem('L1empowerLevel', JSON.stringify(L1empowerLevel));
+}
 
 //Gen init
 function GeneratorL1Init() {
@@ -19,7 +49,7 @@ function GeneratorL1Init() {
       bought: 0,
       amount: 0,
       mult: 1,
-      production: Math.pow(10, (i * 1.75)),
+      production: Math.pow(10, (i * 2)),
       autobuy: false
     }
     document.getElementById("gen" + (i + 1)).classList.remove("TLocked")
@@ -56,13 +86,29 @@ function gotoPage(i) {
   document.getElementsByClassName("page" + i).classList.remove("hidden")
 }
 
+//Pages
+function gotoPage1() {
+  document.getElementById("page1").classList.remove("hidden")
+  document.getElementById("page2").classList.add("hidden")
+  document.getElementById("page3").classList.add("hidden")
+}
+function gotoPage2() {
+  document.getElementById("page2").classList.remove("hidden")
+  document.getElementById("page1").classList.add("hidden")
+  document.getElementById("page3").classList.add("hidden")
+}
+function gotoPage3() {
+  document.getElementById("page3").classList.remove("hidden")
+  document.getElementById("page2").classList.add("hidden")
+  document.getElementById("page1").classList.add("hidden")
+}
+
 //Gen buying
 function buyGenerator(i) {
   let g = generatorsL1[i - 1]
   if (g.cost > power) return
   power -= g.cost
   g.amount += 1
-  g.bought += 1
   g.mult *= 1.05
   g.cost *= 1.5
 }
@@ -135,7 +181,7 @@ function updateGUI() {
   for (let i = 0; i < L1TierCount; i++) {
     //Updating Generators
     let g = generatorsL1[i]
-    document.getElementById("gen" + (i + 1)).innerHTML = "Generator Tier " + (i + 1) + "<br>Amount: " + format(g.amount) + "<br>Bought: " + g.bought + "<br>Mult: " + format(g.mult) + "x<br>Cost: " + format(g.cost) + "<br>Production: " + format(g.production)
+    document.getElementById("gen" + (i + 1)).innerHTML = "Generator Tier " + (i + 1) + "<br>Amount: " + format(g.amount) + "<br>Mult: " + format(g.mult) + "x<br>Cost: " + format(g.cost) + "<br>Production: " + format(g.production)
     if (g.cost > power) document.getElementById("gen" + (i + 1)).classList.add("locked")
     else document.getElementById("gen" + (i + 1)).classList.remove("locked")
   }
@@ -159,11 +205,18 @@ function mainLoop() {
 
   productionLoop(diff)
   updateGUI()
+  saveTimer++
+  if (saveTimer > (20 * 60)) {
+    autoSave()
+    saveTimer = 0
+  }
 
   lastUpdate = Date.now()
   lastPowerUpdate = power
 }
 
+
 setInterval(mainLoop, 50)
+
 
 updateGUI()
