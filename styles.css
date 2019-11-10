@@ -1,0 +1,92 @@
+* {
+    box-sizing: border-box;
+    font-family: Trebuchet MS, sans-serif;
+    background-color: rgb(209, 204, 183);
+}
+
+.generatorL1 {
+    border: 2px solid rgb(24, 24, 24);
+    background-color: rgb(221, 221, 221);
+    width: 220px;
+    text-align: left;
+    padding: 15px;
+    font-size: 0.9em;
+    cursor: pointer;
+    margin: 15px;
+    border-radius: 8px;
+    flex-wrap: wrap;
+}
+
+.locked {
+    background-color: rgb(119, 119, 119);
+    border-color: rgb(24, 24, 24);
+}
+
+.generatorsL1-container {
+    display: flex;
+    width: 502px;
+    flex-wrap: wrap;
+    margin: auto;
+    align-content: center;
+    justify-content: center;
+    justify-content: space-around;
+}
+
+#currency {
+    margin: 30px;
+    font-size: 2em;
+    text-align: center;
+    color: rgb(0, 0, 0);
+}
+
+#currencyPS {
+    margin: 15px;
+    font-size: 1.2em;
+    text-align: center;
+    color: rgb(0, 0, 0);
+}
+
+.TLocked {
+    display: none;
+}
+
+#L1ResetButton {
+    position: fixed;
+    top: 50;
+    left: 50;
+}
+
+#tickSpeedButton {
+    position: fixed;
+    top: 50;
+    right: 50;
+}
+
+#L1EmpowerButton {
+    position: fixed;
+    top: 50;
+    left: 320;
+    width: 300;
+}
+
+.hidden {
+    display: none;
+}
+
+#SettingsButton {
+    position: fixed;
+    bottom: 30px;
+    right: 40px
+}
+
+#AchivementsButton {
+    position: fixed;
+    bottom: 90px;
+    right: 40px
+}
+
+#indexButton {
+    position: fixed;
+    bottom: 150px;
+    right: 40px
+}
