@@ -23,7 +23,7 @@
 
 .generatorsL1-container {
     display: flex;
-    width: 540px;
+    width: 570px;
     flex-wrap: wrap;
     margin: auto;
     align-content: center;
@@ -51,4 +51,21 @@
     position: fixed;
     top: 60;
     left: 50;
+}
+
+#tickSpeedButton {
+    position: fixed;
+    top: 60;
+    right: 50;
+}
+
+#L1EmpowerButton {
+    position: fixed;
+    top: 60;
+    left: 320;
+    width: 300;
+}
+
+.hidden {
+    display: none;
 }
