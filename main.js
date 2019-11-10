@@ -71,7 +71,7 @@ function updateGUI() {
   document.getElementById("currencyPS").textContent = "You gain " + format((power - lastPowerUpdate) * diff * 400) + " power per second"
   if (generatorsL1[L1TierCount - 1].amount < 20) { document.getElementById("L1ResetButton").classList.add("locked") }
   else { document.getElementById("L1ResetButton").classList.remove("locked") }
-  document.getElementById("L1ResetButton").innerHTML = "Reset to gain:<br>New Tier and 2x mult<br>Requires:<br>20 Tier " + L1TierCount + "s"
+  document.getElementById("L1ResetButton").innerHTML = "Reset Level 1 to gain:<br>New Tier and 2x mult<br>Requires:<br>20 Tier " + L1TierCount + "s"
   for (let i = 0; i < L1TierCount; i++) {
     let g = generatorsL1[i]
     document.getElementById("gen" + (i + 1)).innerHTML = "Generator Tier " + (i + 1) + "<br>Amount: " + format(g.amount) + "<br>Bought: " + g.bought + "<br>Mult: " + format(g.mult) + "x<br>Cost: " + format(g.cost) + "<br>Production: " + format(g.production)
