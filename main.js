@@ -12,6 +12,23 @@ var pageCount = 2
 var L1empowerLevel = 0
 var saveTimer = 0
 
+//Gen init
+function GeneratorL1Init() {
+  for (let i = 0; i < L1TierCount; i++) {
+    let generator = {
+      cost: Math.pow(10, (i * 2)) * 10,
+      bought: 0,
+      amount: 0,
+      mult: 1,
+      production: Math.pow(10, (i * 2)),
+      autobuy: false
+    }
+    document.getElementById("gen" + (i + 1)).classList.remove("TLocked")
+    generatorsL1.push(generator)
+  }
+}
+GeneratorL1Init()
+
 function load() {
   power = JSON.parse(localStorage.getItem('power'));
   generatorsL1 = JSON.parse(localStorage.getItem('generatorsL1'));
@@ -40,23 +57,6 @@ function autoSave() {
   localStorage.setItem('tickIncrement', JSON.stringify(tickIncrement));
   localStorage.setItem('L1empowerLevel', JSON.stringify(L1empowerLevel));
 }
-
-//Gen init
-function GeneratorL1Init() {
-  for (let i = 0; i < L1TierCount; i++) {
-    let generator = {
-      cost: Math.pow(10, (i * 2)) * 10,
-      bought: 0,
-      amount: 0,
-      mult: 1,
-      production: Math.pow(10, (i * 2)),
-      autobuy: false
-    }
-    document.getElementById("gen" + (i + 1)).classList.remove("TLocked")
-    generatorsL1.push(generator)
-  }
-}
-GeneratorL1Init()
 
 //Gen Level 1 Reset
 function GeneratorL1Reset() {
