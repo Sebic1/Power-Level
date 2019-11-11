@@ -53,16 +53,7 @@ function load() {
   tickIncrement = JSON.parse(localStorage.getItem('tickIncrement'));
   L1empowerLevel = JSON.parse(localStorage.getItem('L1empowerLevel'));
 }
-load()
-if (!generatorsL1) {
-  generatorsL1 = 0
-}
-if (!L1TierReset) {
-  L1TierReset = 0
-}
-if (!L1empowerLevel) {
-  L1empowerLevel = 0
-}
+//load()
 
 function autoSave() {
   localStorage.setItem('power', JSON.stringify(power));
