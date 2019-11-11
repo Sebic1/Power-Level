@@ -12,17 +12,6 @@ var pageCount = 2
 var L1empowerLevel = 0
 var saveTimer = 0
 
-//reset progress
-function deleteGame() {
-  power = 10
-  GeneratorL1Init()
-  GeneratorL1Reset()
-  tickReset()
-  L1TierCount = 4
-  L1TierReset = 0
-  L1empowerLevel = 0
-}
-
 //Gen init
 function GeneratorL1Init() {
   for (let i = 0; i < L1TierCount; i++) {
@@ -39,6 +28,17 @@ function GeneratorL1Init() {
   }
 }
 GeneratorL1Init()
+
+//reset progress
+function deleteGame() {
+  power = 10
+  GeneratorL1Init()
+  GeneratorL1Reset()
+  tickReset()
+  L1TierCount = 4
+  L1TierReset = 0
+  L1empowerLevel = 0
+}
 
 function load() {
   power = JSON.parse(localStorage.getItem('power'));
