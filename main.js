@@ -12,6 +12,17 @@ var pageCount = 2
 var L1empowerLevel = 0
 var saveTimer = 0
 
+//reset progress
+function deleteGame() {
+  power = 10
+  GeneratorL1Init()
+  GeneratorL1Reset()
+  tickReset()
+  L1TierCount = 4
+  L1TierReset = 0
+  L1empowerLevel = 0
+}
+
 //Gen init
 function GeneratorL1Init() {
   for (let i = 0; i < L1TierCount; i++) {
@@ -175,6 +186,7 @@ function updateGUI() {
   if (generatorsL1[L1TierCount - 1].amount < 20) { document.getElementById("L1ResetButton").classList.add("locked") }
   else { document.getElementById("L1ResetButton").classList.remove("locked") }
   if (L1TierReset > 0) document.getElementById("L1EmpowerButton").classList.remove("hidden")
+  else document.getElementById("L1EmpowerButton").classList.add("hidden")
   document.getElementById("L1EmpowerButton").innerHTML = "Reset game to Empower Tier " + (L1empowerLevel + 1) + " and gain:<br>An autobuyer and 3x mult on Tier " + (L1empowerLevel + 1) + "<br>Requires:<br> 50 Tier " + (L1empowerLevel + 4) + "s"
   if (generatorsL1[L1empowerLevel + 3].amount < 50) { document.getElementById("L1EmpowerButton").classList.add("locked") }
   else { document.getElementById("L1EmpowerButton").classList.remove("locked") }
