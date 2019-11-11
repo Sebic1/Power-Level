@@ -11,6 +11,7 @@ var tickIncrement = 1.10
 var pageCount = 2
 var L1empowerLevel = 0
 var saveTimer = 0
+var firstTime = 0
 
 //Gen init
 function GeneratorL1Init() {
@@ -29,6 +30,8 @@ function GeneratorL1Init() {
 }
 GeneratorL1Init()
 
+console.log(generatorsL1[0])
+
 //reset progress
 function deleteGame() {
   power = 10
@@ -38,6 +41,20 @@ function deleteGame() {
   L1TierCount = 4
   L1TierReset = 0
   L1empowerLevel = 0
+}
+
+function autoSave() {
+  localStorage.setItem('power', JSON.stringify(power));
+  localStorage.setItem('generatorsL1', JSON.stringify(generatorsL1));
+  localStorage.setItem('lastUpdate', JSON.stringify(lastUpdate));
+  localStorage.setItem('lastPowerUpdater', JSON.stringify(lastPowerUpdate));
+  localStorage.setItem('diff', JSON.stringify(diff));
+  localStorage.setItem('L1TierCount', JSON.stringify(L1TierCount));
+  localStorage.setItem('L1TierReset', JSON.stringify(L1TierReset));
+  localStorage.setItem('tickSpeedCost', JSON.stringify(tickSpeedCost));
+  localStorage.setItem('tickMult', JSON.stringify(tickMult));
+  localStorage.setItem('tickIncrement', JSON.stringify(tickIncrement));
+  localStorage.setItem('L1empowerLevel', JSON.stringify(L1empowerLevel));
 }
 
 function load() {
@@ -53,22 +70,6 @@ function load() {
   tickIncrement = JSON.parse(localStorage.getItem('tickIncrement'));
   L1empowerLevel = JSON.parse(localStorage.getItem('L1empowerLevel'));
 }
-//load()
-
-function autoSave() {
-  localStorage.setItem('power', JSON.stringify(power));
-  localStorage.setItem('generatorsL1', JSON.stringify(generatorsL1));
-  localStorage.setItem('lastUpdate', JSON.stringify(lastUpdate));
-  localStorage.setItem('lastPowerUpdater', JSON.stringify(lastPowerUpdate));
-  localStorage.setItem('diff', JSON.stringify(diff));
-  localStorage.setItem('L1TierCount', JSON.stringify(L1TierCount));
-  localStorage.setItem('L1TierReset', JSON.stringify(L1TierReset));
-  localStorage.setItem('tickSpeedCost', JSON.stringify(tickSpeedCost));
-  localStorage.setItem('tickMult', JSON.stringify(tickMult));
-  localStorage.setItem('tickIncrement', JSON.stringify(tickIncrement));
-  localStorage.setItem('L1empowerLevel', JSON.stringify(L1empowerLevel));
-}
-autoSave()
 
 //Gen Level 1 Reset
 function GeneratorL1Reset() {
