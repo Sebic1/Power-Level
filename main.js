@@ -21,7 +21,7 @@ function GeneratorL1Init() {
       bought: 0,
       amount: 0,
       mult: 1,
-      production: Math.pow(10, (i * 2)),
+      production: Math.pow(10, (i * 1.9)),
       autobuy: false
     }
     document.getElementById("gen" + (i + 1)).classList.remove("TLocked")
@@ -59,11 +59,12 @@ function autoSave() {
 
 function load() {
   power = JSON.parse(localStorage.getItem('power'));
-  generatorsL1 = JSON.parse(localStorage.getItem('generatorsL1'));
   lastUpdate = JSON.parse(localStorage.getItem('lastUpdate'));
   lastPowerUpdate = JSON.parse(localStorage.getItem('lastPowerUpdate'));
   diff = JSON.parse(localStorage.getItem('diff'));
   L1TierCount = JSON.parse(localStorage.getItem('L1TierCount'));
+  GeneratorL1Init()
+  generatorsL1 = JSON.parse(localStorage.getItem('generatorsL1'));
   L1TierReset = JSON.parse(localStorage.getItem('L1TierReset'));
   tickSpeedCost = JSON.parse(localStorage.getItem('tickSpeedCost'));
   tickMult = JSON.parse(localStorage.getItem('tickMult'));
@@ -78,7 +79,7 @@ function GeneratorL1Reset() {
     generatorsL1[i].cost = Math.pow(10, (i * 2)) * 10
     generatorsL1[i].bought = 0
     generatorsL1[i].mult = 1
-    generatorsL1[i].production = Math.pow(10, (i * 1.75))
+    generatorsL1[i].production = Math.pow(10, (i * 1.9))
     document.getElementById("gen" + (i + 1)).classList.remove("TLocked")
   }
 }
