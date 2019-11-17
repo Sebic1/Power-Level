@@ -151,7 +151,7 @@ function L1Empower() {
   GeneratorL1Reset()
   tickReset()
   generatorsL1[L1empowerLevel].mult *= 3
-  generatorsL1[L1empowerLevel].autobuy = true
+  generatorsL1[L1empowerLevel - 1].autobuy = true
   document.getElementById("genA" + L1empowerLevel).classList.remove("TLocked")
   document.getElementById("AutoButton").classList.remove("hidden")
 }
