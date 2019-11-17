@@ -94,9 +94,9 @@ function format(amount) {
 //Pages
 function gotoPage(i) {
   for (let a = 1; a <= pageCount; a++ ){
-    document.getElementsById("page" + a).classList.add("hidden")
+    document.getElementById("page" + a).classList.add("hidden")
   }
-  document.getElementsById("page" + i).classList.remove("hidden")
+  document.getElementById("page" + i).classList.remove("hidden")
 }
 
 //Pages
