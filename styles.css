@@ -90,3 +90,9 @@
     bottom: 150px;
     right: 40px
 }
+
+#AutoButton {
+    position: fixed;
+    bottom: 210px;
+    right: 40px
+}
