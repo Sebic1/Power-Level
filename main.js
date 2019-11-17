@@ -71,6 +71,10 @@ function load() {
   L1empowerLevel = JSON.parse(localStorage.getItem('L1empowerLevel'));
 }
 
+if (!(localStorage.getItem("power") === null)) {
+  load()
+}
+
 //Gen Level 1 Reset
 function GeneratorL1Reset() {
   for (let i = 0; i < L1TierCount; i++ ){
