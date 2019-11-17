@@ -91,29 +91,12 @@ function format(amount) {
   return mantissa.toFixed(2) + "e" + power
 }
 
-//Pages
+//DRY Pages
 function gotoPage(i) {
   for (let a = 1; a <= pageCount; a++ ){
     document.getElementById("page" + a).classList.add("hidden")
   }
   document.getElementById("page" + i).classList.remove("hidden")
-}
- 
-//Pages
-function gotoPage1() {
-  document.getElementById("page1").classList.remove("hidden")
-  document.getElementById("page2").classList.add("hidden")
-  document.getElementById("page3").classList.add("hidden")
-}
-function gotoPage2() {
-  document.getElementById("page2").classList.remove("hidden")
-  document.getElementById("page1").classList.add("hidden")
-  document.getElementById("page3").classList.add("hidden")
-}
-function gotoPage3() {
-  document.getElementById("page3").classList.remove("hidden")
-  document.getElementById("page2").classList.add("hidden")
-  document.getElementById("page1").classList.add("hidden")
 }
 
 //Gen buying
@@ -165,6 +148,7 @@ function L1Empower() {
   tickReset()
   generatorsL1[L1empowerLevel].mult *= 3
   generatorsL1[L1empowerLevel].autobuy = true
+  document.getElementById("genA" + L1empowerLevel).classList.remove("TLocked")
 }
 
 //Autobuying
@@ -172,6 +156,16 @@ function AutoBuy() {
   for (let i = 0; i < L1TierCount; i++ ){
     if (generatorsL1[i].autobuy == true && generatorsL1[i].autoBuyToggle == true)
     buyGenerator(i)
+  }
+}
+
+//AutoBuyer Toggle
+function AutoBuyerToggle(i) {
+  if (generatorsL1[i - 1].autoBuyToggle == true) {
+    generatorsL1[i - 1].autoBuyToggle = false
+  }
+  else {
+    generatorsL1[i - 1].autoBuyToggle = true
   }
 }
 
@@ -198,8 +192,16 @@ function updateGUI() {
     document.getElementById("gen" + (i + 1)).innerHTML = "Generator Tier " + (i + 1) + "<br>Amount: " + format(g.amount) + "<br>Mult: " + format(g.mult) + "x<br>Cost: " + format(g.cost) + "<br>Production: " + format(g.production)
     if (g.cost > power) document.getElementById("gen" + (i + 1)).classList.add("locked")
     else document.getElementById("gen" + (i + 1)).classList.remove("locked")
+    if (g.autoBuyToggle == true) {
+      document.getElementById("genA" + (i + 1)).innerHTML = "Autobuyer Tier " + (i + 1) + "<br>Status: on"
+    } else if (g.autoBuyToggle == false) {
+      document.getElementById("genA" + (i + 1)).innerHTML = "Autobuyer Tier " + (i + 1) + "<br>Status: off"
+    } else {
+      document.getElementById("genA" + (i + 1)).innerHTML = "Autobuyer Tier " + (i + 1) + "<br>Status: unfunctional"
+    }
   }
 }
+
 
 function productionLoop(diff) {
   for (let i = 0; i < L1TierCount; i++) {
