@@ -1,5 +1,3 @@
-function startGame() {
-
 var power = 10
 var generatorsL1 = []
 var lastUpdate = Date.now()
@@ -234,5 +232,3 @@ setInterval(mainLoop, 50)
 
 
 updateGUI()
-}
-startGame()
