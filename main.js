@@ -217,7 +217,7 @@ function productionLoop(diff) {
 */
 function mainLoop() {
   diff = (Date.now() - lastUpdate) / 1000
-
+  AutoBuy()
   productionLoop(diff)
   updateGUI()
   saveTimer++
