@@ -1,3 +1,5 @@
+function startGame() {
+
 var power = 10
 var generatorsL1 = []
 var lastUpdate = Date.now()
@@ -28,12 +30,9 @@ function GeneratorL1Init() {
     document.getElementById("gen" + (i + 1)).classList.remove("TLocked")
     generatorsL1.push(generator)
   }
-} 
+}
 GeneratorL1Init()
 
-//reset progress
-function deleteGame() {
-}
 
 function autoSave() {
   localStorage.setItem('power', JSON.stringify(power));
@@ -235,3 +234,5 @@ setInterval(mainLoop, 50)
 
 
 updateGUI()
+}
+startGame()
