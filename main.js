@@ -7,7 +7,7 @@ var L1TierCount = 4
 var L1TierReset = 0
 var tickSpeedCost = 1000000
 var tickMult = 1
-var tickIncrement = 1.10
+var tickIncrement = 1.05
 var pageCount = 2
 var L1empowerLevel = 0
 var saveTimer = 0
@@ -21,8 +21,9 @@ function GeneratorL1Init() {
       bought: 0,
       amount: 0,
       mult: 1,
-      production: Math.pow(10, (i * 1.9)),
-      autobuy: false
+      production: Math.pow(10, (i * 1.8)),
+      autobuy: false,
+      autoBuyToggle: True
     }
     document.getElementById("gen" + (i + 1)).classList.remove("TLocked")
     generatorsL1.push(generator)
