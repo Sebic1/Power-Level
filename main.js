@@ -98,7 +98,7 @@ function gotoPage(i) {
   }
   document.getElementById("page" + i).classList.remove("hidden")
 }
-
+ 
 //Pages
 function gotoPage1() {
   document.getElementById("page1").classList.remove("hidden")
