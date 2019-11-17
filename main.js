@@ -149,6 +149,7 @@ function L1Empower() {
   generatorsL1[L1empowerLevel].mult *= 3
   generatorsL1[L1empowerLevel].autobuy = true
   document.getElementById("genA" + L1empowerLevel).classList.remove("TLocked")
+  document.getElementById("AutoButton").classList.remove("hidden")
 }
 
 //Autobuying
