@@ -159,8 +159,9 @@ function L1Empower() {
 //Autobuying
 function AutoBuy() {
   for (let i = 0; i < L1TierCount; i++ ){
-    if (generatorsL1[i].autobuy == true && generatorsL1[i].autoBuyToggle == true)
-    buyGenerator(i)
+    if (generatorsL1[i].autobuy == true && generatorsL1[i].autoBuyToggle == true) {
+      buyGenerator(i)
+    }
   }
 }
 
