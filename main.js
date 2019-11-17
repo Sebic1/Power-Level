@@ -28,7 +28,7 @@ function GeneratorL1Init() {
     document.getElementById("gen" + (i + 1)).classList.remove("TLocked")
     generatorsL1.push(generator)
   }
-}
+} 
 GeneratorL1Init()
 
 //reset progress
