@@ -70,17 +70,13 @@ if (!(localStorage.getItem("power") === null)) {
 }
 
 //Gen Level 1 Reset
-function GeneratorL1Reset(i) {
+function GeneratorL1Reset() {
   for (let i = 0; i < L1TierCount; i++ ){
     generatorsL1[i].amount = 0
     generatorsL1[i].cost = Math.pow(10, (i * 2)) * 10
     generatorsL1[i].bought = 0
     generatorsL1[i].mult = 1
     generatorsL1[i].production = Math.pow(10, (i * 1.9)),
-    if (i > 0) {
-      generatorsL1[i].autobuy = false
-      generatorsL1[i].autobuy = true
-    }
     document.getElementById("gen" + (i + 1)).classList.remove("TLocked")
   }
 }
