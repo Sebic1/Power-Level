@@ -33,7 +33,6 @@ GeneratorL1Init()
 
 //reset progress
 function deleteGame() {
-  Program.restart();
 }
 
 function autoSave() {
