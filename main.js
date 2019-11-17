@@ -23,15 +23,13 @@ function GeneratorL1Init() {
       mult: 1,
       production: Math.pow(10, (i * 1.8)),
       autobuy: false,
-      autoBuyToggle: True
+      autoBuyToggle: true
     }
     document.getElementById("gen" + (i + 1)).classList.remove("TLocked")
     generatorsL1.push(generator)
   }
 }
 GeneratorL1Init()
-
-console.log(generatorsL1[0])
 
 //reset progress
 function deleteGame() {
@@ -96,9 +94,9 @@ function format(amount) {
 //Pages
 function gotoPage(i) {
   for (let a = 1; a <= pageCount; a++ ){
-    document.getElementsByClassName("page" + a).classList.add("hidden")
+    document.getElementsById("page" + a).classList.add("hidden")
   }
-  document.getElementsByClassName("page" + i).classList.remove("hidden")
+  document.getElementsById("page" + i).classList.remove("hidden")
 }
 
 //Pages
@@ -172,7 +170,7 @@ function L1Empower() {
 //Autobuying
 function AutoBuy() {
   for (let i = 0; i < L1TierCount; i++ ){
-    if (generatorsL1[i].autobuy == true)
+    if (generatorsL1[i].autobuy == true && generatorsL1[i].autoBuyToggle == true)
     buyGenerator(i)
   }
 }
