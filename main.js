@@ -77,10 +77,7 @@ function GeneratorL1Reset(a) {
     generatorsL1[i].bought = 0
     generatorsL1[i].mult = 1
     generatorsL1[i].production = Math.pow(10, (i * 1.9)),
-    if (a > 0) { //TV
-      generatorsL1[i].autobuy = false
-      generatorsL1[i].autoBuyToggle = false
-    }
+    if (a > 0) { generatorsL1[i].autobuy = false generatorsL1[i].autoBuyToggle = false } // TV
     document.getElementById("gen" + (i + 1)).classList.remove("TLocked")
   }
 }
