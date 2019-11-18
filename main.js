@@ -12,6 +12,7 @@ var pageCount = 4
 var L1empowerLevel = 0
 var saveTimer = 0
 var firstTime = 0
+var TVcost = 50
 
 //Gen init
 function GeneratorL1Init() {
@@ -156,12 +157,20 @@ function AutoBuy() {
 
 //AutoBuyer Toggle
 function AutoBuyerToggle(i) {
-  if (generatorsL1[i].autoBuyToggle == true) {
-    generatorsL1[i].autoBuyToggle = false
+  if (generatorsL1[i + 1].autoBuyToggle == true) {
+    generatorsL1[i + 1].autoBuyToggle = false
   }
   else {
-    generatorsL1[i].autoBuyToggle = true
+    generatorsL1[i + 1].autoBuyToggle = true
   }
+}
+
+//TV-ing
+function TVreset() {
+  if (generatorsL1[9].amount < TVcost) return
+  GeneratorL1Init()
+  GeneratorL1Reset()
+  tickReset()
 }
 
 //Updating GUI
