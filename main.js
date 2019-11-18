@@ -157,11 +157,11 @@ function AutoBuy() {
 
 //AutoBuyer Toggle
 function AutoBuyerToggle(i) {
-  if (generatorsL1[i - 1].autoBuyToggle == true) {
-    generatorsL1[i - 1].autoBuyToggle = false
+  if (generatorsL1[i].autoBuyToggle == true) {
+    generatorsL1[i].autoBuyToggle = false
   }
   else {
-    generatorsL1[i - 1].autoBuyToggle = true
+    generatorsL1[i].autoBuyToggle = true
   }
 }
 
