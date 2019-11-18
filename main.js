@@ -189,6 +189,7 @@ function productionLoop(diff) {
     power += powerPs
   }
 }
+productionLoop(0) 
 
 //Updating GUI
 function updateGUI() {
