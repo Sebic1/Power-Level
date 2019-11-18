@@ -7,7 +7,7 @@ var L1TierCount = 4
 var L1TierReset = 0
 var tickSpeedCost = 1000000
 var tickMult = 1
-var tickIncrement = 1.05
+var tickIncrement = 1.1
 var pageCount = 4
 var L1empowerLevel = 0
 var saveTimer = 0
@@ -57,7 +57,7 @@ function load() {
   L1TierReset = JSON.parse(localStorage.getItem('L1TierReset'));
   tickSpeedCost = JSON.parse(localStorage.getItem('tickSpeedCost'));
   tickMult = JSON.parse(localStorage.getItem('tickMult'));
-  //tickIncrement = JSON.parse(localStorage.getItem('tickIncrement'));
+  tickIncrement = JSON.parse(localStorage.getItem('tickIncrement'));
   L1empowerLevel = JSON.parse(localStorage.getItem('L1empowerLevel'));
 }
 
