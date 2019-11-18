@@ -187,7 +187,7 @@ function updateGUI() {
   // Updating Power
   document.getElementById("currency").textContent = "You have " + format(power) + " power"
   // Updation Power per second
-  document.getElementById("currencyPS").textContent = "You gain " + format(powerP) + " power per second"
+  document.getElementById("currencyPS").textContent = "You gain " + format(powerPs) + " power per second"
   // Tickspeed Button
   document.getElementById("tickSpeedButton").innerHTML = "Tickspeed<br>Buy to speed up your game by " + format(tickIncrement) + "x<br>Cost: " + format(tickSpeedCost) + "<br>Currently " + format(tickMult) + "x faster"
   if (power < tickSpeedCost) { document.getElementById("tickSpeedButton").classList.add("locked") }
