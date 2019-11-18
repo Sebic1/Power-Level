@@ -114,14 +114,15 @@ function buyTickSpeed() {
 //Tick reset
 function tickReset() {
   tickSpeedCost = 1000000
-  tickIncrement = 1.10
   tickMult = 1
 }
 
 //L1 Reset
 function L1Reset() {
   if (generatorsL1[L1TierCount - 1].amount < 20) return
-  L1TierCount +=1
+  if (L1TierCount < 10) {
+    L1TierCount +=1
+  }
   power = 10
   GeneratorL1Init()
   GeneratorL1Reset()
@@ -174,7 +175,8 @@ function updateGUI() {
   document.getElementById("tickSpeedButton").innerHTML = "Buy to speed up your game by " + tickIncrement + "x<br>Cost: " + format(tickSpeedCost) + "<br>Currently " + format(tickMult) + "x faster"
   if (power < tickSpeedCost) { document.getElementById("tickSpeedButton").classList.add("locked") }
   else { document.getElementById("tickSpeedButton").classList.remove("locked") }
-  document.getElementById("L1ResetButton").innerHTML = "Reset Level 1 to gain:<br>New Tier and 2x mult<br>Requires:<br>20 Tier " + L1TierCount + "s"
+  if (L1TierCount < 10)  { document.getElementById("L1ResetButton").innerHTML = "Reset Level 1 to gain:<br>New Tier and 2x mult<br>Requires:<br>20 Tier " + L1TierCount + "s" }
+  else { document.getElementById("L1ResetButton").innerHTML = "Reset Level 1 to gain:<br>2x mult<br>Requires:<br>20 Tier " + L1TierCount + "s" }
   if (generatorsL1[L1TierCount - 1].amount < 20) { document.getElementById("L1ResetButton").classList.add("locked") }
   else { document.getElementById("L1ResetButton").classList.remove("locked") }
   if (L1TierReset > 0) document.getElementById("L1EmpowerButton").classList.remove("hidden")
