@@ -143,7 +143,6 @@ function L1Empower() {
   tickReset()
   generatorsL1[L1empowerLevel].mult *= 3
   generatorsL1[L1empowerLevel - 1].autobuy = true
-  document.getElementById("genA" + L1empowerLevel).classList.remove("TLocked")
 }
 
 //Autobuying
@@ -184,6 +183,9 @@ function updateGUI() {
   document.getElementById("L1EmpowerButton").innerHTML = "Reset game to Empower Tier " + (L1empowerLevel + 1) + " and gain:<br>An autobuyer and 3x mult on Tier " + (L1empowerLevel + 1) + "<br>Requires:<br> 50 Tier " + (L1empowerLevel + 4) + "s"
   if (generatorsL1[L1empowerLevel + 3].amount < 50) { document.getElementById("L1EmpowerButton").classList.add("locked") }
   else { document.getElementById("L1EmpowerButton").classList.remove("locked") }
+  for (let i = 1; i <= L1empowerLevel; i++) {
+      document.getElementById("genA" + L1empowerLevel).classList.remove("TLocked")
+  }
   for (let i = 0; i < L1TierCount; i++) {
     //Updating Generators
     let g = generatorsL1[i]
