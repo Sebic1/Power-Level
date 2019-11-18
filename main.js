@@ -182,12 +182,20 @@ function TVreset() {
   tickIncrement *= Math.pow(TVmult, L1TierReset)
 }
 
+//Production Loop
+function productionLoop(diff) {
+  for (let i = 0; i < L1TierCount; i++) {
+    powerPs = generatorsL1[i].amount * generatorsL1[i].mult * generatorsL1[i].production * diff * tickMult
+    power += powerPs
+  }
+}
+
 //Updating GUI
 function updateGUI() {
   // Updating Power
   document.getElementById("currency").textContent = "You have " + format(power) + " power"
   // Updation Power per second
-  document.getElementById("currencyPS").textContent = "You gain " + format((generatorsL1[i].amount * generatorsL1[i].mult * generatorsL1[i].production * diff * tickMult)) + " power per second"
+  document.getElementById("currencyPS").textContent = "You gain " + format(powerPs) + " power per second"
   // Tickspeed Button
   document.getElementById("tickSpeedButton").innerHTML = "Tickspeed<br>Buy to speed up your game by " + format(tickIncrement) + "x<br>Cost: " + format(tickSpeedCost) + "<br>Currently " + format(tickMult) + "x faster"
   if (power < tickSpeedCost) { document.getElementById("tickSpeedButton").classList.add("locked") }
@@ -229,13 +237,6 @@ function updateGUI() {
   }
 }
 
-
-function productionLoop(diff) {
-  for (let i = 0; i < L1TierCount; i++) {
-    powerPs = generatorsL1[i].amount * generatorsL1[i].mult * generatorsL1[i].production * diff * tickMult
-    power += powerPs
-  }
-}
 /*  \/ ORIGINAL CODE \/
 function productionLoop(diff) {
   power += generatorsL1[0].amount * generatorsL1[0].mult * diff
