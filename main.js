@@ -57,7 +57,7 @@ function load() {
   L1TierReset = JSON.parse(localStorage.getItem('L1TierReset'));
   tickSpeedCost = JSON.parse(localStorage.getItem('tickSpeedCost'));
   tickMult = JSON.parse(localStorage.getItem('tickMult'));
-  tickIncrement = JSON.parse(localStorage.getItem('tickIncrement'));
+  //tickIncrement = JSON.parse(localStorage.getItem('tickIncrement'));
   L1empowerLevel = JSON.parse(localStorage.getItem('L1empowerLevel'));
 }
 
