@@ -185,7 +185,7 @@ function updateGUI() {
   for (let i = 0; i < L1TierCount; i++) {
     //Updating Generators
     let g = generatorsL1[i]
-    document.getElementById("gen" + (i + 1)).innerHTML = "Generator Tier " + (i + 1) + "<br>Amount: " + format(g.amount) + "<br>Mult: " + format(g.mult) + "x<br>Cost: " + format(g.cost) + "<br>Production: " + format(g.production)
+    document.getElementById("gen" + (i + 1)).innerHTML = "Generator Tier " + (i + 1) + "<br>Amount: " + format(g.amount) + "<br>Mult: " + format(g.mult) + "x<br>Cost: " + format(g.cost) + "<br>Production: " + format((g.production * g.mult))
     if (g.cost > power) document.getElementById("gen" + (i + 1)).classList.add("locked")
     else document.getElementById("gen" + (i + 1)).classList.remove("locked")
     if (g.autoBuyToggle == true) {
