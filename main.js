@@ -70,14 +70,13 @@ if (!(localStorage.getItem("power") === null)) {
 }
 
 //Gen Level 1 Reset
-function GeneratorL1Reset(a) {
+function GeneratorL1Reset() {
   for (let i = 0; i < L1TierCount; i++ ){ // Default
     generatorsL1[i].amount = 0
     generatorsL1[i].cost = Math.pow(10, (i * 2)) * 10
     generatorsL1[i].bought = 0
     generatorsL1[i].mult = 1
     generatorsL1[i].production = Math.pow(10, (i * 1.9)),
-    if (a > 0) { generatorsL1[i].autobuy = false generatorsL1[i].autoBuyToggle = false } // TV
     document.getElementById("gen" + (i + 1)).classList.remove("TLocked")
   }
 }
@@ -130,7 +129,7 @@ function L1Reset() {
   }
   power = 10
   GeneratorL1Init()
-  GeneratorL1Reset(0)
+  GeneratorL1Reset()
   tickReset()
   L1TierReset += 1
   for (let i = 0; i < L1TierCount; i++) {
@@ -144,7 +143,7 @@ function L1Empower() {
   L1empowerLevel +=1
   power = 10
   GeneratorL1Init()
-  GeneratorL1Reset(0)
+  GeneratorL1Reset()
   tickReset()
   generatorsL1[L1empowerLevel].mult *= 3
   generatorsL1[L1empowerLevel - 1].autobuy = true
@@ -173,7 +172,11 @@ function AutoBuyerToggle(i) {
 function TVreset() {
   if (generatorsL1[9].amount < TVcost) return
   GeneratorL1Init()
-  GeneratorL1Reset(1)
+  GeneratorL1Reset()
+  for (let i = 0; i < L1TierCount; i++) {
+    generatorsL1[i].autobuy = false
+    generatorsL1[i].autoBuyToggle = false
+  }
   tickReset()
   TVlevel += 1
   tickIncrement *= Math.pow(TVmult, L1TierReset)
