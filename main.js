@@ -13,6 +13,9 @@ var L1empowerLevel = 0
 var saveTimer = 0
 var firstTime = 0
 var TVcost = 50
+var TVlevel = 0
+var powerPs = 0
+var TVmult = 1.5
 
 //Gen init
 function GeneratorL1Init() {
@@ -67,13 +70,17 @@ if (!(localStorage.getItem("power") === null)) {
 }
 
 //Gen Level 1 Reset
-function GeneratorL1Reset() {
-  for (let i = 0; i < L1TierCount; i++ ){
+function GeneratorL1Reset(a) {
+  for (let i = 0; i < L1TierCount; i++ ){ // Default
     generatorsL1[i].amount = 0
     generatorsL1[i].cost = Math.pow(10, (i * 2)) * 10
     generatorsL1[i].bought = 0
     generatorsL1[i].mult = 1
     generatorsL1[i].production = Math.pow(10, (i * 1.9)),
+    if (a > 0) { //TV
+      generatorsL1[i].autobuy = false
+      generatorsL1[i].autoBuyToggle = false
+    }
     document.getElementById("gen" + (i + 1)).classList.remove("TLocked")
   }
 }
@@ -126,7 +133,7 @@ function L1Reset() {
   }
   power = 10
   GeneratorL1Init()
-  GeneratorL1Reset()
+  GeneratorL1Reset(0)
   tickReset()
   L1TierReset += 1
   for (let i = 0; i < L1TierCount; i++) {
@@ -140,7 +147,7 @@ function L1Empower() {
   L1empowerLevel +=1
   power = 10
   GeneratorL1Init()
-  GeneratorL1Reset()
+  GeneratorL1Reset(0)
   tickReset()
   generatorsL1[L1empowerLevel].mult *= 3
   generatorsL1[L1empowerLevel - 1].autobuy = true
@@ -169,8 +176,10 @@ function AutoBuyerToggle(i) {
 function TVreset() {
   if (generatorsL1[9].amount < TVcost) return
   GeneratorL1Init()
-  GeneratorL1Reset()
+  GeneratorL1Reset(1)
   tickReset()
+  TVlevel += 1
+  tickIncrement *= Math.pow(TVmult, L1TierReset)
 }
 
 //Updating GUI
@@ -178,30 +187,39 @@ function updateGUI() {
   // Updating Power
   document.getElementById("currency").textContent = "You have " + format(power) + " power"
   // Updation Power per second
-  document.getElementById("currencyPS").textContent = "You gain " + format((power - lastPowerUpdate) * diff * 400) + " power per second"
-  document.getElementById("tickSpeedButton").innerHTML = "Buy to speed up your game by " + tickIncrement + "x<br>Cost: " + format(tickSpeedCost) + "<br>Currently " + format(tickMult) + "x faster"
+  document.getElementById("currencyPS").textContent = "You gain " + format(powerP) + " power per second"
+  // Tickspeed Button
+  document.getElementById("tickSpeedButton").innerHTML = "Tickspeed<br>Buy to speed up your game by " + format(tickIncrement) + "x<br>Cost: " + format(tickSpeedCost) + "<br>Currently " + format(tickMult) + "x faster"
   if (power < tickSpeedCost) { document.getElementById("tickSpeedButton").classList.add("locked") }
   else { document.getElementById("tickSpeedButton").classList.remove("locked") }
+  // Autobuyer Toggle Button
   if (L1empowerLevel > 0) {document.getElementById("AutoButton").classList.remove("hidden")}
-  if (L1TierCount < 10)  { document.getElementById("L1ResetButton").innerHTML = "Reset Level 1 to gain:<br>New Tier and 2x mult<br>Requires:<br>20 Tier " + L1TierCount + "s" }
+  // L1Reset Button
+  if (L1TierCount < 10)  { document.getElementById("L1ResetButton").innerHTML = "Tier Up<br>Reset Level 1 to gain:<br>New Tier and 2x mult<br>Requires:<br>20 Tier " + L1TierCount + "s" }
   else { document.getElementById("L1ResetButton").innerHTML = "Reset Level 1 to gain:<br>2x mult<br>Requires:<br>20 Tier " + L1TierCount + "s" }
   if (generatorsL1[L1TierCount - 1].amount < 20) { document.getElementById("L1ResetButton").classList.add("locked") }
   else { document.getElementById("L1ResetButton").classList.remove("locked") }
+  // L1Empower Button
   if (L1TierReset > 0) document.getElementById("L1EmpowerButton").classList.remove("hidden")
   else document.getElementById("L1EmpowerButton").classList.add("hidden")
-  document.getElementById("L1EmpowerButton").innerHTML = "Reset game to Empower Tier " + (L1empowerLevel + 1) + " and gain:<br>An autobuyer and 3x mult on Tier " + (L1empowerLevel + 1) + "<br>Requires:<br> 50 Tier " + (L1empowerLevel + 4) + "s"
+  document.getElementById("L1EmpowerButton").innerHTML = "Empower<br>Reset game to Empower Tier " + (L1empowerLevel + 1) + " and gain:<br>An autobuyer and 3x mult on Tier " + (L1empowerLevel + 1) + "<br>Requires:<br> 50 Tier " + (L1empowerLevel + 4) + "s"
   if (generatorsL1[L1empowerLevel + 3].amount < 50) { document.getElementById("L1EmpowerButton").classList.add("locked") }
   else { document.getElementById("L1EmpowerButton").classList.remove("locked") }
   for (let i = 1; i <= L1empowerLevel; i++) {
       document.getElementById("genA" + L1empowerLevel).classList.remove("TLocked")
   }
+  //TV Button
+  if (L1TierCount > 5) document.getElementById("TVButton").classList.remove("hidden")
+  document.getElementById("TVButton").innerHTML = "TV<br>Reset empowerments and tier-ups to get:<br>A TV to consume your time<br>Upgrade:<br>Tickspeed upgrades by " + TVmult + "<br>Requires:<br>" + TVcost
+  if (generatorsL1[9] < TVcost) { document.getElementById("TVButton").classList.add("locked") }
+  else { document.getElementById("TVButton").classList.remove("locked") }
   for (let i = 0; i < L1TierCount; i++) {
     //Updating Generators
     let g = generatorsL1[i]
     document.getElementById("gen" + (i + 1)).innerHTML = "Generator Tier " + (i + 1) + "<br>Amount: " + format(g.amount) + "<br>Mult: " + format(g.mult) + "x<br>Cost: " + format(g.cost) + "<br>Production: " + format((g.production * g.mult))
     if (g.cost > power) document.getElementById("gen" + (i + 1)).classList.add("locked")
     else document.getElementById("gen" + (i + 1)).classList.remove("locked")
-    if (g.autoBuyToggle == true) {
+    if (g.autoBuyToggle == true) { // Updating Autobuyer Toggle Button
       document.getElementById("genA" + (i + 1)).innerHTML = "Autobuyer Tier " + (i + 1) + "<br>Status: on"
     } else if (g.autoBuyToggle == false) {
       document.getElementById("genA" + (i + 1)).innerHTML = "Autobuyer Tier " + (i + 1) + "<br>Status: off"
@@ -214,7 +232,8 @@ function updateGUI() {
 
 function productionLoop(diff) {
   for (let i = 0; i < L1TierCount; i++) {
-    power += generatorsL1[i].amount * generatorsL1[i].mult * generatorsL1[i].production * diff * tickMult
+    powerPs = generatorsL1[i].amount * generatorsL1[i].mult * generatorsL1[i].production * diff * tickMult
+    power += powerPs
   }
 }
 /*  \/ ORIGINAL CODE \/
