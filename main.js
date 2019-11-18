@@ -144,7 +144,6 @@ function L1Empower() {
   generatorsL1[L1empowerLevel].mult *= 3
   generatorsL1[L1empowerLevel - 1].autobuy = true
   document.getElementById("genA" + L1empowerLevel).classList.remove("TLocked")
-  document.getElementById("AutoButton").classList.remove("hidden")
 }
 
 //Autobuying
@@ -175,6 +174,7 @@ function updateGUI() {
   document.getElementById("tickSpeedButton").innerHTML = "Buy to speed up your game by " + tickIncrement + "x<br>Cost: " + format(tickSpeedCost) + "<br>Currently " + format(tickMult) + "x faster"
   if (power < tickSpeedCost) { document.getElementById("tickSpeedButton").classList.add("locked") }
   else { document.getElementById("tickSpeedButton").classList.remove("locked") }
+  if (L1empowerLevel > 0) {document.getElementById("AutoButton").classList.remove("hidden")}
   if (L1TierCount < 10)  { document.getElementById("L1ResetButton").innerHTML = "Reset Level 1 to gain:<br>New Tier and 2x mult<br>Requires:<br>20 Tier " + L1TierCount + "s" }
   else { document.getElementById("L1ResetButton").innerHTML = "Reset Level 1 to gain:<br>2x mult<br>Requires:<br>20 Tier " + L1TierCount + "s" }
   if (generatorsL1[L1TierCount - 1].amount < 20) { document.getElementById("L1ResetButton").classList.add("locked") }
