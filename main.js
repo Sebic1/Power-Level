@@ -90,11 +90,11 @@ function load() {
   L1empowerLevel = JSON.parse(localStorage.getItem('L1empowerLevel'));
 }
 //Load check
-/*
+
 if (!(localStorage.getItem("power") === null)) {
   load()
 }
-*/
+
 
 /////BUTTONS
 //Gen Level 1 Reset
