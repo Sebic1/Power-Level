@@ -152,7 +152,7 @@ function tickReset() {
 //L1 Tier-Up
 function L1Reset() {
   if (generatorsL1[L1TierCount - 1].amount < TierUpCost) return
-  if (L1TierCount = 10) {
+  if (L1TierCount == 10) {
     TierUpCost *= 1.5
   }
   power = 10
