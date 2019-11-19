@@ -16,6 +16,7 @@ var TVcost = 50
 var TVlevel = 0
 var powerPs = 0
 var TVmult = 1.5
+var TierUpCost = 20
 
 //Gen init
 function GeneratorL1Init() {
@@ -121,11 +122,14 @@ function tickReset() {
   tickMult = 1
 }
 
-//L1 Reset
+//L1 Tier-Up
 function L1Reset() {
-  if (generatorsL1[L1TierCount - 1].amount < 20) return
+  if (generatorsL1[L1TierCount - 1].amount < TierUpCost) return
   if (L1TierCount < 10) {
     L1TierCount +=1
+  }
+  if (L1TierCount = 10) {
+    TierUpCost *= 1.5
   }
   power = 10
   GeneratorL1Init()
@@ -179,6 +183,7 @@ function TVreset() {
   }
   tickReset()
   TVlevel += 1
+  TVcost *= 1.3
   tickIncrement *= Math.pow(TVmult, L1TierReset)
 }
 
@@ -189,7 +194,6 @@ function productionLoop(diff) {
     power += powerPs
   }
 }
-productionLoop(0) 
 
 //Updating GUI
 function updateGUI() {
