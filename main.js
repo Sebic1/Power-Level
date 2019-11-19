@@ -9,7 +9,7 @@ var L1TierReset = 0
 var tickSpeedCost = 1000000
 var tickMult = 1
 var tickIncrement = 1.1
-var pageCount = 4
+var pageCount = 5
 var L1empowerLevel = 0
 var saveTimer = 0
 var TVcost = 50
@@ -18,6 +18,7 @@ var powerPs = 0
 var TVmult = 1.5
 var TierUpCost = 20
 var ResetGUI = 0
+var Kamount = 1
 
 //Gen init
 function GeneratorL1Init() {
@@ -56,7 +57,7 @@ function startGame() {
   tickSpeedCost = 1000000
   tickMult = 1
   tickIncrement = 1.1
-  pageCount = 4
+  pageCount = 5
   L1empowerLevel = 0
   saveTimer = 0
   TVcost = 50
@@ -64,6 +65,7 @@ function startGame() {
   powerPs = 0
   TVmult = 1.5
   TierUpCost = 20
+  Kamount = 1
   GeneratorL1Init()
 }
 
@@ -240,6 +242,7 @@ function PreKugelblitz () {
   ResetGUI()
 }
 function Kugelblitz() {
+  gotoPage(1)
   ResetGUI()
   GeneratorL1Init()
   GeneratorL1Reset()
@@ -303,6 +306,7 @@ function updateGUI() {
   if (power == Infinity) {
     PreKugelblitz()
   }
+  document.getElementById("KugelblitzButton").innerHTML = "Kugelblitz<br>All of your power has condensed into a kugelblitz (a blackhole made purely of energy)<br>Kugelblitz to gain:<br>" + Kamount + "singularities"
     //Updating Generators
     let g = generatorsL1[i]
     document.getElementById("gen" + (i + 1)).innerHTML = "Generator Tier " + (i + 1) + "<br>Amount: " + format(g.amount) + "<br>Mult: " + format(g.mult) + "x<br>Cost: " + format(g.cost) + "<br>Production: " + format((g.production * g.mult))
