@@ -236,6 +236,14 @@ function TVdelete() {
   TVcost = 50
 }
 
+//Reseting GUI
+function ResetGUI() {
+  document.getElementById("AutoButton").classList.add("hidden")
+  document.getElementById("L1EmpowerButton").classList.add("hidden")
+  document.getElementById("TVButton").classList.add("hidden")
+  TLockL1Gens()
+}
+
 //Kugelblitz-ing
 function PreKugelblitz () {
   gotoPage(4)
@@ -263,13 +271,6 @@ function productionLoop(diff) {
 }
 
 ////GUI
-//Reseting GUI
-function ResetGUI() {
-  document.getElementById("AutoButton").classList.add("hidden")
-  document.getElementById("L1EmpowerButton").classList.add("hidden")
-  document.getElementById("TVButton").classList.add("hidden")
-  TLockL1Gens()
-}
 //Updating GUI
 function updateGUI() {
   // Updating Power
