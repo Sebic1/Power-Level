@@ -1,3 +1,4 @@
+/////Initialization
 var power = 10
 var generatorsL1 = []
 var lastUpdate = Date.now()
@@ -36,7 +37,7 @@ function GeneratorL1Init() {
 }
 GeneratorL1Init()
 
-
+//Saving
 function autoSave() {
   localStorage.setItem('power', JSON.stringify(power));
   localStorage.setItem('generatorsL1', JSON.stringify(generatorsL1));
@@ -51,6 +52,7 @@ function autoSave() {
   localStorage.setItem('L1empowerLevel', JSON.stringify(L1empowerLevel));
 }
 
+//Loading
 function load() {
   power = JSON.parse(localStorage.getItem('power'));
   lastUpdate = JSON.parse(localStorage.getItem('lastUpdate'));
@@ -65,11 +67,12 @@ function load() {
   tickIncrement = JSON.parse(localStorage.getItem('tickIncrement'));
   L1empowerLevel = JSON.parse(localStorage.getItem('L1empowerLevel'));
 }
-
+//Load check
 if (!(localStorage.getItem("power") === null)) {
   load()
 }
 
+/////BUTTONS
 //Gen Level 1 Reset
 function GeneratorL1Reset() {
   for (let i = 0; i < L1TierCount; i++ ){ // Default
@@ -187,6 +190,9 @@ function TVreset() {
   tickIncrement *= Math.pow(TVmult, L1TierReset)
 }
 
+//Kugelblitz-ing
+
+/////MAIN THINGS
 //Production Loop
 function productionLoop(diff) {
   for (let i = 0; i < L1TierCount; i++) {
@@ -250,6 +256,7 @@ function productionLoop(diff) {
   }
 }
 */
+//Main Loop
 function mainLoop() {
   diff = (Date.now() - lastUpdate) / 1000
   AutoBuy()
