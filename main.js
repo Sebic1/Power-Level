@@ -211,7 +211,7 @@ function TVreset() {
   tickReset()
   TVlevel += 1
   TVcost *= 1.3
-  tickIncrement *= Math.pow(TVmult, L1TierReset)
+  tickIncrement *= Math.pow(TVmult, TVlevel)
 }
 
 //Kugelblitz-ing
