@@ -102,3 +102,9 @@
   top: 200px;
   right: 50px
 }
+
+#KugelblitzButton {
+  font-size: 1.25em;
+  width: auto;
+  text-align: center;
+}

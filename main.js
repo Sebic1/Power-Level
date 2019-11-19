@@ -17,7 +17,6 @@ var TVlevel = 0
 var powerPs = 0
 var TVmult = 1.5
 var TierUpCost = 20
-var ResetGUI = 0
 var Kamount = 1
 
 //Gen init
@@ -220,11 +219,11 @@ function AutoBuyerToggle(i) {
 //TV-ing
 function TVreset() {
   if (generatorsL1[9].amount < TVcost) return
-  TLockL1Gens()
   GeneratorL1Init()
   GeneratorL1Reset()
   tickReset()
   L1EmpowerDelete()
+  TLockL1Gens()
   power = 10
   TVlevel += 1
   TVcost *= 1.3
@@ -234,6 +233,7 @@ function TVreset() {
 function TVdelete() {
   TVlevel = 0
   TVcost = 50
+  tickIncrement = 1.1
 }
 
 //Reseting GUI
@@ -245,18 +245,17 @@ function ResetGUI() {
 }
 
 //Kugelblitz-ing
-function PreKugelblitz () {
-  gotoPage(4)
-  ResetGUI()
+function PreKugelblitz() {
+  gotoPage(5)
 }
 function Kugelblitz() {
   gotoPage(1)
-  ResetGUI()
-  GeneratorL1Init()
-  GeneratorL1Reset()
   tickReset()
   L1EmpowerDelete()
   TVdelete()
+  ResetGUI()
+  GeneratorL1Init()
+  GeneratorL1Reset()
   L1TierCount = 4
   power = 10
 }
@@ -298,8 +297,8 @@ function updateGUI() {
       document.getElementById("genA" + L1empowerLevel).classList.remove("TLocked")
   }
   //TV Button
-  if (L1TierCount > 5) document.getElementById("TVButton").classList.remove("hidden")
-  document.getElementById("TVButton").innerHTML = "TV<br>Reset empowerments and tier-ups to get:<br>A TV to consume your time<br>Upgrade:<br>Tickspeed upgrades by " + TVmult + "<br>Requires:<br>" + TVcost
+  if (L1TierCount > 5 || TVlevel > 0) document.getElementById("TVButton").classList.remove("hidden")
+  document.getElementById("TVButton").innerHTML = "TV<br>Reset empowerments and tier-ups to get:<br>A TV to consume your time<br>Upgrade:<br>Tickspeed upgrades by " + TVmult + "<br>Requires:<br>" + TVcost + " Tier 10s"
   if (generatorsL1[9] < TVcost) { document.getElementById("TVButton").classList.add("locked") }
   else { document.getElementById("TVButton").classList.remove("locked") }
   for (let i = 0; i < L1TierCount; i++) {
@@ -307,7 +306,7 @@ function updateGUI() {
   if (power == Infinity) {
     PreKugelblitz()
   }
-  document.getElementById("KugelblitzButton").innerHTML = "Kugelblitz<br>All of your power has condensed into a kugelblitz (a blackhole made purely of energy)<br>Kugelblitz to gain:<br>" + Kamount + "singularities"
+  document.getElementById("KugelblitzButton").innerHTML = "Kugelblitz<br>All of your power has condensed into a kugelblitz (a blackhole made purely of energy)<br>Kugelblitz to gain:<br>" + Kamount + " singularities"
     //Updating Generators
     let g = generatorsL1[i]
     document.getElementById("gen" + (i + 1)).innerHTML = "Generator Tier " + (i + 1) + "<br>Amount: " + format(g.amount) + "<br>Mult: " + format(g.mult) + "x<br>Cost: " + format(g.cost) + "<br>Production: " + format((g.production * g.mult))
