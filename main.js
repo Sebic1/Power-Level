@@ -17,6 +17,7 @@ var TVlevel = 0
 var powerPs = 0
 var TVmult = 1.5
 var TierUpCost = 20
+var ResetGUI = 0
 
 //Gen init
 function GeneratorL1Init() {
@@ -26,6 +27,7 @@ function GeneratorL1Init() {
       bought: 0,
       amount: 0,
       mult: 1,
+      Emult: 1,
       production: Math.pow(10, (i * 1.8)),
       autobuy: false,
       autoBuyToggle: true
@@ -35,6 +37,12 @@ function GeneratorL1Init() {
   }
 }
 GeneratorL1Init()
+
+function TLockL1Gens() {
+  (let i = 0; i < 10; i++){
+    document.getElementById("gen" + (i + 1)).classList.add("TLocked")
+  }
+}
 
 //Deleting progress
 function startGame() {
@@ -176,8 +184,16 @@ function L1Empower() {
   GeneratorL1Init()
   GeneratorL1Reset()
   tickReset()
-  generatorsL1[L1empowerLevel].mult *= 3
+  generatorsL1[L1empowerLevel].Emult *= 3
   generatorsL1[L1empowerLevel - 1].autobuy = true
+}
+function L1EmpowerDelete() {
+  L1empowerLevel = 0
+  for (let i = 0; i < L1TierCount; i++) {
+    generatorsL1[i].autobuy = false
+    generatorsL1[i].autoBuyToggle = false
+    generatorsL1[i].Emult = 1
+  }
 }
 
 //Autobuying
@@ -202,29 +218,55 @@ function AutoBuyerToggle(i) {
 //TV-ing
 function TVreset() {
   if (generatorsL1[9].amount < TVcost) return
+  TLockL1Gens()
   GeneratorL1Init()
   GeneratorL1Reset()
-  for (let i = 0; i < L1TierCount; i++) {
-    generatorsL1[i].autobuy = false
-    generatorsL1[i].autoBuyToggle = false
-  }
   tickReset()
+  L1EmpowerDelete()
+  power = 10
   TVlevel += 1
   TVcost *= 1.3
+  L1TierCount = 4
   tickIncrement *= Math.pow(TVmult, TVlevel)
+}
+function TVdelete() {
+  TVlevel = 0
+  TVcost = 50
 }
 
 //Kugelblitz-ing
+function PreKugelblitz () {
+  gotoPage(4)
+  ResetGUI()
+}
+function Kugelblitz() {
+  ResetGUI()
+  GeneratorL1Init()
+  GeneratorL1Reset()
+  tickReset()
+  L1EmpowerDelete()
+  TVdelete()
+  L1TierCount = 4
+  power = 10
+}
 
 /////MAIN THINGS
 //Production Loop
 function productionLoop(diff) {
   for (let i = 0; i < L1TierCount; i++) {
-    powerPs = generatorsL1[i].amount * generatorsL1[i].mult * generatorsL1[i].production * diff * tickMult
+    powerPs = generatorsL1[i].amount * generatorsL1[i].mult * generatorsL1[i].Emult * generatorsL1[i].production * diff * tickMult
     power += powerPs
   }
 }
 
+////GUI
+//Reseting GUI
+function ResetGUI() {
+  document.getElementById("AutoButton").classList.add("hidden")
+  document.getElementById("L1EmpowerButton").classList.add("hidden")
+  document.getElementById("TVButton").classList.add("hidden")
+  TLockL1Gens()
+}
 //Updating GUI
 function updateGUI() {
   // Updating Power
@@ -257,6 +299,10 @@ function updateGUI() {
   if (generatorsL1[9] < TVcost) { document.getElementById("TVButton").classList.add("locked") }
   else { document.getElementById("TVButton").classList.remove("locked") }
   for (let i = 0; i < L1TierCount; i++) {
+  ////Kugelblitz
+  if (power == Infinity) {
+    PreKugelblitz()
+  }
     //Updating Generators
     let g = generatorsL1[i]
     document.getElementById("gen" + (i + 1)).innerHTML = "Generator Tier " + (i + 1) + "<br>Amount: " + format(g.amount) + "<br>Mult: " + format(g.mult) + "x<br>Cost: " + format(g.cost) + "<br>Production: " + format((g.production * g.mult))
