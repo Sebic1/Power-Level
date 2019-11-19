@@ -40,7 +40,7 @@ function GeneratorL1Init() {
 GeneratorL1Init()
 
 function TLockL1Gens() {
-  (let i = 0; i < 10; i++){
+  for (let i = 0; i < 10; i++) {
     document.getElementById("gen" + (i + 1)).classList.add("TLocked")
   }
 }
