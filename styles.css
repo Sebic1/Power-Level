@@ -64,7 +64,7 @@
 
 #L1EmpowerButton {
     position: fixed;
-    top: 150px;
+    top: 200px;
     left: 50px;
     width: 300px;
 }
@@ -99,6 +99,6 @@
 
 #TVButton {
   position: fixed;
-  top: 150px;
+  top: 200px;
   right: 50px
 }

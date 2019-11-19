@@ -12,7 +12,6 @@ var tickIncrement = 1.1
 var pageCount = 4
 var L1empowerLevel = 0
 var saveTimer = 0
-var firstTime = 0
 var TVcost = 50
 var TVlevel = 0
 var powerPs = 0
@@ -36,6 +35,29 @@ function GeneratorL1Init() {
   }
 }
 GeneratorL1Init()
+
+//Deleting progress
+function startGame() {
+  power = 10
+  generatorsL1 = []
+  lastUpdate = Date.now()
+  lastPowerUpdate = power
+  diff = 0
+  L1TierCount = 4
+  L1TierReset = 0
+  tickSpeedCost = 1000000
+  tickMult = 1
+  tickIncrement = 1.1
+  pageCount = 4
+  L1empowerLevel = 0
+  saveTimer = 0
+  TVcost = 50
+  TVlevel = 0
+  powerPs = 0
+  TVmult = 1.5
+  TierUpCost = 20
+  GeneratorL1Init()
+}
 
 //Saving
 function autoSave() {
@@ -68,9 +90,11 @@ function load() {
   L1empowerLevel = JSON.parse(localStorage.getItem('L1empowerLevel'));
 }
 //Load check
+/*
 if (!(localStorage.getItem("power") === null)) {
   load()
 }
+*/
 
 /////BUTTONS
 //Gen Level 1 Reset
@@ -128,9 +152,6 @@ function tickReset() {
 //L1 Tier-Up
 function L1Reset() {
   if (generatorsL1[L1TierCount - 1].amount < TierUpCost) return
-  if (L1TierCount < 10) {
-    L1TierCount +=1
-  }
   if (L1TierCount = 10) {
     TierUpCost *= 1.5
   }
@@ -215,7 +236,7 @@ function updateGUI() {
   if (L1empowerLevel > 0) {document.getElementById("AutoButton").classList.remove("hidden")}
   // L1Reset Button
   if (L1TierCount < 10)  { document.getElementById("L1ResetButton").innerHTML = "Tier Up<br>Reset Level 1 to gain:<br>New Tier and 2x mult<br>Requires:<br>20 Tier " + L1TierCount + "s" }
-  else { document.getElementById("L1ResetButton").innerHTML = "Reset Level 1 to gain:<br>2x mult<br>Requires:<br>20 Tier " + L1TierCount + "s" }
+  else { document.getElementById("L1ResetButton").innerHTML = "Reset Level 1 to gain:<br>2x mult<br>Requires:<br>" + TierUpCost + " Tier " + L1TierCount + "s" }
   if (generatorsL1[L1TierCount - 1].amount < 20) { document.getElementById("L1ResetButton").classList.add("locked") }
   else { document.getElementById("L1ResetButton").classList.remove("locked") }
   // L1Empower Button
