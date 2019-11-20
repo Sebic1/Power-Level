@@ -18,6 +18,7 @@ var powerPs = 0
 var TVmult = 1.5
 var TierUpCost = 20
 var Kamount = 1
+var singularityAmount = 0
 
 //Gen init
 function GeneratorL1Init() {
@@ -258,6 +259,7 @@ function Kugelblitz() {
   GeneratorL1Reset()
   L1TierCount = 4
   power = 10
+  singularityAmount += 1
 }
 
 /////MAIN THINGS
@@ -274,7 +276,9 @@ function productionLoop(diff) {
 function updateGUI() {
   // Updating Power
   document.getElementById("currency").textContent = "You have " + format(power) + " power"
-  // Updation Power per second
+  //Updating singularities
+  document.getElementById("singularityCounter").textContent = "You have " + format(singularityAmount) + " singularities"
+  // Updating Power per second
   document.getElementById("currencyPS").textContent = "You gain " + format(powerPs) + " power per second"
   // Tickspeed Button
   document.getElementById("tickSpeedButton").innerHTML = "Tickspeed<br>Buy to speed up your game by " + format(tickIncrement) + "x<br>Cost: " + format(tickSpeedCost) + "<br>Currently " + format(tickMult) + "x faster"
