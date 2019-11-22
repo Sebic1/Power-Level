@@ -336,6 +336,9 @@ function productionLoop(diff) {
 */
 //Main Loop
 function mainLoop() {
+  if (power == NaN) {
+    power = 10
+  }
   diff = (Date.now() - lastUpdate) / 1000
   AutoBuy()
   productionLoop(diff)
