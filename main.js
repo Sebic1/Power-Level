@@ -5,6 +5,7 @@ var lastUpdate = Date.now()
 var lastPowerUpdate = power
 var diff = 0
 var L1TierCount = 4
+var L1GMult = 1.05
 var L1TierReset = 0
 var tickSpeedCost = 1000000
 var tickMult = 1
@@ -141,8 +142,11 @@ function buyGenerator(i) {
   if (g.cost > power) return
   power -= g.cost
   g.amount += 1
-  g.mult *= 1.05
+  g.mult *= L1GMult
   g.cost *= 1.5
+  for (let a = (i + 1); a < L1TierCount; a++) {
+    generatorsL1[a - 1].mult *= (L1GMult / (Math.pow(2,(a-i))))
+  }
 }
 
 //Tick speed buying
@@ -209,11 +213,11 @@ function AutoBuy() {
 
 //AutoBuyer Toggle
 function AutoBuyerToggle(i) {
-  if (generatorsL1[i + 1].autoBuyToggle == true) {
-    generatorsL1[i + 1].autoBuyToggle = false
+  if (generatorsL1[i - 1].autoBuyToggle == true) {
+    generatorsL1[i - 1].autoBuyToggle = false
   }
   else {
-    generatorsL1[i + 1].autoBuyToggle = true
+    generatorsL1[i - 1].autoBuyToggle = true
   }
 }
 
@@ -242,6 +246,7 @@ function ResetGUI() {
   document.getElementById("AutoButton").classList.add("hidden")
   document.getElementById("L1EmpowerButton").classList.add("hidden")
   document.getElementById("TVButton").classList.add("hidden")
+  document.getElementById("singularityCounter").classList.add("hidden")
   TLockL1Gens()
 }
 
@@ -257,6 +262,7 @@ function Kugelblitz() {
   ResetGUI()
   GeneratorL1Init()
   GeneratorL1Reset()
+  document.getElementById("singularityCounter").classList.remove("hidden")
   L1TierCount = 4
   power = 10
   singularityAmount += 1
@@ -355,3 +361,4 @@ setInterval(mainLoop, 50)
 
 
 updateGUI()
+
