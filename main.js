@@ -145,7 +145,7 @@ function buyGenerator(i) {
   g.mult *= L1GMult
   g.cost *= 1.5
   for (let a = i; a < L1TierCount; a++) {
-    generatorsL1[a].mult *= ((L1GMult-1) / (Math.pow(2,(a-i+1))))+1
+    generatorsL1[a].mult *= (((L1GMult-1) / (Math.pow(2,(a-i+1))))+1)
   }
 }
 
