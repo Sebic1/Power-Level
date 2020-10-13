@@ -65,7 +65,7 @@ function startGame() {
   TVlevel = 0
   powerPs = 0
   TVmult = 1.5
-  L1TierUpCost = 20
+  L1TierUpCost = 10
   Kamount = 1
   GeneratorL1Init()
   ResetGUI()
