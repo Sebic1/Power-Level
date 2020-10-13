@@ -68,6 +68,7 @@ function startGame() {
   TierUpCost = 20
   Kamount = 1
   GeneratorL1Init()
+  ResetGUI()
 }
 
 //Saving
