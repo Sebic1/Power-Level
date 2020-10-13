@@ -17,7 +17,7 @@ var TVcost = 50
 var TVlevel = 0
 var powerPs = 0
 var TVmult = 1.5
-var TierUpCost = 20
+var L1TierUpCost = 10
 var Kamount = 1
 var singularityAmount = 0
 
@@ -65,7 +65,7 @@ function startGame() {
   TVlevel = 0
   powerPs = 0
   TVmult = 1.5
-  TierUpCost = 20
+  L1TierUpCost = 20
   Kamount = 1
   GeneratorL1Init()
   ResetGUI()
@@ -166,12 +166,12 @@ function tickReset() {
 
 //L1 Tier-Up
 function L1Reset() {
-  if (generatorsL1[L1TierCount - 1].amount < TierUpCost) return
+  if (generatorsL1[L1TierCount - 1].amount < L1TierUpCost) return
   if (L1TierCount < 10) {
     L1TierCount++
   }
   if (L1TierCount == 10) {
-    TierUpCost *= 1.5
+    L1TierUpCost *= 1.5
   }
   power = 10
   GeneratorL1Init()
@@ -295,7 +295,7 @@ function updateGUI() {
   if (L1empowerLevel > 0) {document.getElementById("AutoButton").classList.remove("hidden")}
   // L1Reset Button
   if (L1TierCount < 10)  { document.getElementById("L1ResetButton").innerHTML = "Tier Up<br>Reset Level 1 to gain:<br>New Tier and 2x mult<br>Requires:<br>20 Tier " + L1TierCount + "s" }
-  else { document.getElementById("L1ResetButton").innerHTML = "Reset Level 1 to gain:<br>2x mult<br>Requires:<br>" + TierUpCost + " Tier " + L1TierCount + "s" }
+  else { document.getElementById("L1ResetButton").innerHTML = "Reset Level 1 to gain:<br>2x mult<br>Requires:<br>" + L1TierUpCost + " Tier " + L1TierCount + "s" }
   if (generatorsL1[L1TierCount - 1].amount < 20) { document.getElementById("L1ResetButton").classList.add("locked") }
   else { document.getElementById("L1ResetButton").classList.remove("locked") }
   // L1Empower Button
