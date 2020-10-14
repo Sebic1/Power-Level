@@ -338,7 +338,7 @@ function updateGUI() {
   if (L1TierReset > 0) document.getElementById("L1EmpowerButton").classList.remove("hidden")
   else document.getElementById("L1EmpowerButton").classList.add("hidden")
   document.getElementById("L1EmpowerButton").innerHTML = "Empower<br>Reset game to Empower Tier " + (L1empowerLevel + 1) + " and gain:<br>An autobuyer and 3x mult on Tier " + (L1empowerLevel + 1) + "<br>Requires:<br> 50 Tier " + (L1empowerLevel + 1) + "s"
-  if (generatorsL1[L1empowerLevel + 3].amount < 50) { document.getElementById("L1EmpowerButton").classList.add("locked") }
+  if (generatorsL1[L1empowerLevel].amount < 50) { document.getElementById("L1EmpowerButton").classList.add("locked") }
   else { document.getElementById("L1EmpowerButton").classList.remove("locked") }
   for (let i = 1; i <= L1empowerLevel; i++) {
       document.getElementById("genA" + L1empowerLevel).classList.remove("TLocked")
