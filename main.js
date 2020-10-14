@@ -168,6 +168,9 @@ function tickReset() {
 //L1 Tier-Up
 function L1Reset() {
   if (generatorsL1[L1TierCount - 1].amount < L1TierUpCost) return
+  for (let i = 0; i < L1TierCount; i++) {
+    generatorsL1[i].mult *= Math.pow(2, L1TierReset)
+  }
   if (L1TierCount < 10) {
     L1TierCount++
   }
@@ -179,9 +182,6 @@ function L1Reset() {
   GeneratorL1Reset()
   tickReset()
   L1TierReset += 1
-  for (let i = 0; i < L1TierCount; i++) {
-    generatorsL1[i].mult *= Math.pow(2, L1TierReset)
-  }
 }
 
 //L1 Empower
