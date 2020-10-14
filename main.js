@@ -55,6 +55,7 @@ function startGame() {
   lastPowerUpdate = power
   diff = 0
   L1TierCount = 4
+  L1GMult = 1.05
   L1TierReset = 0
   tickSpeedCost = 1000000
   tickMult = 1
@@ -68,6 +69,9 @@ function startGame() {
   TVmult = 1.5
   L1TierUpCost = 20
   Kamount = 1
+  singularityAmount = 0
+  powerPSArray = []
+  powerPSTotal = 0
   GeneratorL1Init()
   ResetGUI()
 }
@@ -77,14 +81,26 @@ function autoSave() {
   localStorage.setItem('power', JSON.stringify(power));
   localStorage.setItem('generatorsL1', JSON.stringify(generatorsL1));
   localStorage.setItem('lastUpdate', JSON.stringify(lastUpdate));
-  localStorage.setItem('lastPowerUpdater', JSON.stringify(lastPowerUpdate));
+  localStorage.setItem('lastPowerUpdate', JSON.stringify(lastPowerUpdate));
   localStorage.setItem('diff', JSON.stringify(diff));
   localStorage.setItem('L1TierCount', JSON.stringify(L1TierCount));
+  localStorage.setItem('L1GMult', JSON.stringify(L1GMult));
   localStorage.setItem('L1TierReset', JSON.stringify(L1TierReset));
   localStorage.setItem('tickSpeedCost', JSON.stringify(tickSpeedCost));
   localStorage.setItem('tickMult', JSON.stringify(tickMult));
   localStorage.setItem('tickIncrement', JSON.stringify(tickIncrement));
+  localStorage.setItem('pageCount', JSON.stringify(pageCount));
   localStorage.setItem('L1empowerLevel', JSON.stringify(L1empowerLevel));
+  localStorage.setItem('saveTimer', JSON.stringify(saveTimer));
+  localStorage.setItem('TVcost', JSON.stringify(TVcost));
+  localStorage.setItem('TVlevel', JSON.stringify(TVlevel));
+  localStorage.setItem('powerPs', JSON.stringify(powerPs));
+  localStorage.setItem('TVmult', JSON.stringify(TVmult));
+  localStorage.setItem('L1TierUpCost', JSON.stringify(L1TierUpCost));
+  localStorage.setItem('Kamount', JSON.stringify(Kamount));
+  localStorage.setItem('singularityAmount', JSON.stringify(singularityAmount));
+  localStorage.setItem('powerPSArray', JSON.stringify(powerPSArray));
+  localStorage.setItem('powerPSTotal', JSON.stringify(powerPSTotal));
 }
 
 //Loading
@@ -96,11 +112,22 @@ function load() {
   L1TierCount = JSON.parse(localStorage.getItem('L1TierCount'));
   GeneratorL1Init()
   generatorsL1 = JSON.parse(localStorage.getItem('generatorsL1'));
+  L1GMult =
   L1TierReset = JSON.parse(localStorage.getItem('L1TierReset'));
   tickSpeedCost = JSON.parse(localStorage.getItem('tickSpeedCost'));
   tickMult = JSON.parse(localStorage.getItem('tickMult'));
   tickIncrement = JSON.parse(localStorage.getItem('tickIncrement'));
   L1empowerLevel = JSON.parse(localStorage.getItem('L1empowerLevel'));
+  saveTimer = JSON.parse(localStorage.getItem('saveTimer'));
+  TVcost = JSON.parse(localStorage.getItem('TVcost'));
+  TVlevel = JSON.parse(localStorage.getItem('TVlevel'));
+  powerPs = JSON.parse(localStorage.getItem('powerPs'));
+  TVmult = JSON.parse(localStorage.getItem('TVmult'));
+  L1TierUpCost = JSON.parse(localStorage.getItem('L1TierUpCost'));
+  Kamount = JSON.parse(localStorage.getItem('Kamount'));
+  singularityAmount = JSON.parse(localStorage.getItem('singularityAmount'));
+  powerPSArray = JSON.parse(localStorage.getItem('powerPSArray'));
+  powerPSTotal = JSON.parse(localStorage.getItem('powerPSTotal'));
 }
 //Load check
 
