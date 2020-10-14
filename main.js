@@ -220,7 +220,7 @@ function L1Empower() {
   GeneratorL1Init()
   GeneratorL1Reset()
   tickReset()
-  generatorsL1[L1empowerLevel].Emult *= 3
+  generatorsL1[L1empowerLevel].mult *= 3
   generatorsL1[L1empowerLevel - 1].autobuy = true
 }
 function L1EmpowerDelete() {
@@ -228,7 +228,7 @@ function L1EmpowerDelete() {
   for (let i = 0; i < L1TierCount; i++) {
     generatorsL1[i].autobuy = false
     generatorsL1[i].autoBuyToggle = false
-    generatorsL1[i].Emult = 1
+    generatorsL1[i].mult = 1
   }
 }
 
