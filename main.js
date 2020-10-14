@@ -113,7 +113,7 @@ function load() {
   L1TierCount = JSON.parse(localStorage.getItem('L1TierCount'));
   GeneratorL1Init()
   generatorsL1 = JSON.parse(localStorage.getItem('generatorsL1'));
-  L1GMult =
+  L1GMult = JSON.parse(localStorage.getItem('L1GMult'));
   L1TierReset = JSON.parse(localStorage.getItem('L1TierReset'));
   tickSpeedCost = JSON.parse(localStorage.getItem('tickSpeedCost'));
   tickMult = JSON.parse(localStorage.getItem('tickMult'));
