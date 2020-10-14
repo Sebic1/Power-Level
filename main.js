@@ -20,7 +20,7 @@ var TVmult = 1.5
 var L1TierUpCost = 10
 var Kamount = 1
 var singularityAmount = 0
-
+var powerPSVisual = 0
 //Gen init
 function GeneratorL1Init() {
   for (let i = 0; i < L1TierCount; i++) {
@@ -144,7 +144,7 @@ function buyGenerator(i) {
   power -= g.cost
   g.amount += 1
   g.mult *= L1GMult
-  g.cost *= 1.5
+  g.cost *= 1.25
   for (let a = i; a < L1TierCount; a++) {
     generatorsL1[a].mult *= (((L1GMult-1) / (Math.pow(2,((a-i)+1))))+1)
   }
