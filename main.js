@@ -22,6 +22,7 @@ var Kamount = 1
 var singularityAmount = 0
 var powerPSArray = []
 var powerPSTotal = 0
+var L1EmpowerPrice = 200
 //Gen init
 function GeneratorL1Init() {
   for (let i = 0; i < L1TierCount; i++) {
@@ -30,7 +31,6 @@ function GeneratorL1Init() {
       bought: 0,
       amount: 0,
       mult: 1,
-      Emult: 1,
       production: Math.pow(10, (i * 1.8)),
       autobuy: false,
       autoBuyToggle: true
@@ -133,17 +133,19 @@ function load() {
 //Load check
 
 if (!(localStorage.getItem("power") === null)) {
-  load()
+  if (isNaN(power) === false){
+    load()
+  }
 }
 
 
 /////BUTTONS
 //Gen Level 1 Reset
-function GeneratorL1Reset(x) {
+function GeneratorL1Reset() {
   for (let i = 0; i < L1TierCount; i++ ){ // Default
     generatorsL1[i].amount = 0
     generatorsL1[i].cost = Math.pow(10, (i * 2)) * 10
-    generatorsL1[i].bought = 0
+    generatorsL1[i].bought = 0  
     generatorsL1[i].mult = 1
     generatorsL1[i].production = Math.pow(10, (i * 1.9)),
     document.getElementById("gen" + (i + 1)).classList.remove("TLocked")
@@ -152,10 +154,10 @@ function GeneratorL1Reset(x) {
 
 //Scientific notation formating
 function format(amount) {
-  let power = Math.floor(Math.log10(amount))
-  let mantissa = amount / Math.pow(10, power)
-  if (power < 3) return amount.toFixed(2)
-  return mantissa.toFixed(2) + "e" + power
+  let log = Math.floor(Math.log10(amount))
+  let mantissa = amount / Math.pow(10, log)
+  if (log < 3) return amount.toFixed(2)
+  return mantissa.toFixed(2) + "e" + log
 }
 
 //DRY Pages
@@ -197,31 +199,38 @@ function tickReset() {
 function L1Reset() {
   if (generatorsL1[L1TierCount - 1].amount < L1TierUpCost) return
   L1TierReset += 1
-  for (let i = 0; i < L1TierCount; i++) {
-    generatorsL1[i].mult *= Math.pow(2, L1TierReset)
-  }
-  if (L1TierCount < 10) {
-    L1TierCount++
-  }
   if (L1TierCount == 10) {
     L1TierUpCost *= 1.5
   }
   power = 10
+  if (L1TierCount < 10) {
+    L1TierCount++
+  }
   GeneratorL1Init()
   GeneratorL1Reset()
   tickReset()
+  power = 10
+  for (let i = 0; i < L1TierCount-1; i++) {
+    generatorsL1[i].mult *= Math.pow(1.10, L1TierReset)
+  }
+  for (let i = 0; i < L1empowerLevel; i++) {
+    generatorsL1[i].mult *= 3
+  }
 }
 
 //L1 Empower
 function L1Empower() {
-  if (generatorsL1[L1empowerLevel].amount < 50) return
+  if (generatorsL1[L1empowerLevel].amount < L1EmpowerPrice) return
   L1empowerLevel +=1
   power = 10
   GeneratorL1Init()
   GeneratorL1Reset()
   tickReset()
-  generatorsL1[L1empowerLevel].mult *= 3
+  generatorsL1[L1empowerLevel - 1].mult *= 3
   generatorsL1[L1empowerLevel - 1].autobuy = true
+  for (let i = 0; i < L1TierCount-1; i++) {
+    generatorsL1[i].mult *= Math.pow(2, L1TierReset)
+  }
 }
 function L1EmpowerDelete() {
   L1empowerLevel = 0
@@ -234,7 +243,7 @@ function L1EmpowerDelete() {
 
 //Autobuying
 function AutoBuy() {
-  for (let i = L1TierCount+1; i > 0; i-- ){ 
+  for (let i = L1TierCount; i >= 1; i-- ){ 
     if (generatorsL1[i-1].autobuy == true && generatorsL1[i-1].autoBuyToggle == true) {
       buyGenerator(i)
     }
@@ -302,17 +311,17 @@ function Kugelblitz() {
 //Production Loop
 function productionLoop(diff) {
   for (let i = 0; i < L1TierCount; i++) {
-    powerPs = generatorsL1[i].amount * generatorsL1[i].mult * generatorsL1[i].Emult * generatorsL1[i].production * diff * tickMult
+    powerPs = generatorsL1[i].amount * generatorsL1[i].mult * generatorsL1[i].production * diff * tickMult
     power += powerPs
   }
-}
+} 
 
 ////GUI
 //Updating GUI
 function updateGUI() {
   powerPSTotal = 0
   for (let i = 0; i < L1TierCount; i++){
-    powerPSArray[i] = generatorsL1[i].amount * generatorsL1[i].mult * generatorsL1[i].Emult * generatorsL1[i].production * tickMult
+    powerPSArray[i] = generatorsL1[i].amount * generatorsL1[i].mult * generatorsL1[i].production * tickMult
   }
   for (let i = 0; i < L1TierCount; i++){
     powerPSTotal += powerPSArray[i]
@@ -337,8 +346,8 @@ function updateGUI() {
   // L1Empower Button
   if (L1TierReset > 0) document.getElementById("L1EmpowerButton").classList.remove("hidden")
   else document.getElementById("L1EmpowerButton").classList.add("hidden")
-  document.getElementById("L1EmpowerButton").innerHTML = "Empower<br>Reset game to Empower Tier " + (L1empowerLevel + 1) + " and gain:<br>An autobuyer and 3x mult on Tier " + (L1empowerLevel + 1) + "<br>Requires:<br> 50 Tier " + (L1empowerLevel + 1) + "s"
-  if (generatorsL1[L1empowerLevel].amount < 50) { document.getElementById("L1EmpowerButton").classList.add("locked") }
+  document.getElementById("L1EmpowerButton").innerHTML = "Empower<br>Reset game to Empower Tier " + (L1empowerLevel + 1) + " and gain:<br>An autobuyer and 3x mult on Tier " + (L1empowerLevel + 1) + "<br>Requires:<br> "+L1EmpowerPrice+" Tier " + (L1empowerLevel + 1) + "s"
+  if (generatorsL1[L1empowerLevel].amount < L1EmpowerPrice) { document.getElementById("L1EmpowerButton").classList.add("locked") }
   else { document.getElementById("L1EmpowerButton").classList.remove("locked") }
   for (let i = 1; i <= L1empowerLevel; i++) {
       document.getElementById("genA" + L1empowerLevel).classList.remove("TLocked")
@@ -346,7 +355,7 @@ function updateGUI() {
   //TV Button
   if (L1TierCount > 5 || TVlevel > 0) document.getElementById("TVButton").classList.remove("hidden")
   document.getElementById("TVButton").innerHTML = "TV<br>Reset empowerments and tier-ups to get:<br>A TV to consume your time<br>Upgrade:<br>Tickspeed upgrades by " + TVmult + "<br>Requires:<br>" + TVcost + " Tier 10s"
-  if (generatorsL1[9] < TVcost) { document.getElementById("TVButton").classList.add("locked") }
+  if (generatorsL1[9].amount < TVcost && L1TierCount < 10) { document.getElementById("TVButton").classList.add("locked") }
   else { document.getElementById("TVButton").classList.remove("locked") }
   for (let i = 0; i < L1TierCount; i++) {
   ////Kugelblitz
