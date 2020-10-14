@@ -72,8 +72,8 @@ function startGame() {
   singularityAmount = 0
   powerPSArray = []
   powerPSTotal = 0
-  GeneratorL1Reset()
   GeneratorL1Init()
+  GeneratorL1Reset()
   ResetGUI()
 }
 
@@ -139,7 +139,7 @@ if (!(localStorage.getItem("power") === null)) {
 
 /////BUTTONS
 //Gen Level 1 Reset
-function GeneratorL1Reset() {
+function GeneratorL1Reset(x) {
   for (let i = 0; i < L1TierCount; i++ ){ // Default
     generatorsL1[i].amount = 0
     generatorsL1[i].cost = Math.pow(10, (i * 2)) * 10
