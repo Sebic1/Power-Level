@@ -294,7 +294,7 @@ function updateGUI() {
   //Updating singularities
   document.getElementById("singularityCounter").textContent = "You have " + format(singularityAmount) + " singularities"
   // Updating Power per second
-  document.getElementById("currencyPS").textContent = "You gain " + format(powerPSVisual) + " power per second"
+  document.getElementById("currencyPS").textContent = "You gain " + format(powerPSTotal) + " power per second"
   // Tickspeed Button
   document.getElementById("tickSpeedButton").innerHTML = "Tickspeed<br>Buy to speed up your game by " + format(tickIncrement) + "x<br>Cost: " + format(tickSpeedCost) + "<br>Currently " + format(tickMult) + "x faster"
   if (power < tickSpeedCost) { document.getElementById("tickSpeedButton").classList.add("locked") }
