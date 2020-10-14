@@ -17,7 +17,7 @@ var TVcost = 50
 var TVlevel = 0
 var powerPs = 0
 var TVmult = 1.5
-var L1TierUpCost = 10
+var L1TierUpCost = 20
 var Kamount = 1
 var singularityAmount = 0
 var powerPSArray = []
@@ -66,7 +66,7 @@ function startGame() {
   TVlevel = 0
   powerPs = 0
   TVmult = 1.5
-  L1TierUpCost = 10
+  L1TierUpCost = 20
   Kamount = 1
   GeneratorL1Init()
   ResetGUI()
@@ -309,7 +309,7 @@ function updateGUI() {
   // L1Empower Button
   if (L1TierReset > 0) document.getElementById("L1EmpowerButton").classList.remove("hidden")
   else document.getElementById("L1EmpowerButton").classList.add("hidden")
-  document.getElementById("L1EmpowerButton").innerHTML = "Empower<br>Reset game to Empower Tier " + (L1empowerLevel + 1) + " and gain:<br>An autobuyer and 3x mult on Tier " + (L1empowerLevel + 1) + "<br>Requires:<br> 50 Tier " + (L1empowerLevel + 4) + "s"
+  document.getElementById("L1EmpowerButton").innerHTML = "Empower<br>Reset game to Empower Tier " + (L1empowerLevel + 1) + " and gain:<br>An autobuyer and 3x mult on Tier " + (L1empowerLevel + 1) + "<br>Requires:<br> 50 Tier " + (L1empowerLevel + 1) + "s"
   if (generatorsL1[L1empowerLevel + 3].amount < 50) { document.getElementById("L1EmpowerButton").classList.add("locked") }
   else { document.getElementById("L1EmpowerButton").classList.remove("locked") }
   for (let i = 1; i <= L1empowerLevel; i++) {
