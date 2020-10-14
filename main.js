@@ -72,6 +72,7 @@ function startGame() {
   singularityAmount = 0
   powerPSArray = []
   powerPSTotal = 0
+  GeneratorL1Reset()
   GeneratorL1Init()
   ResetGUI()
 }
