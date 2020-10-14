@@ -185,7 +185,7 @@ function L1Reset() {
 
 //L1 Empower
 function L1Empower() {
-  if (generatorsL1[L1empowerLevel + 3].amount < 50) return
+  if (generatorsL1[L1empowerLevel].amount < 50) return
   L1empowerLevel +=1
   power = 10
   GeneratorL1Init()
@@ -205,9 +205,9 @@ function L1EmpowerDelete() {
 
 //Autobuying
 function AutoBuy() {
-  for (let i = 0; i < L1TierCount; i++ ){
-    if (generatorsL1[i].autobuy == true && generatorsL1[i].autoBuyToggle == true) {
-      buyGenerator(i+1)
+  for (let i = 0=1; i < L1TierCount; i++ ){
+    if (generatorsL1[i-1].autobuy == true && generatorsL1[i-1].autoBuyToggle == true) {
+      buyGenerator(i)
     }
   }
 }
