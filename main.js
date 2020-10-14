@@ -20,7 +20,8 @@ var TVmult = 1.5
 var L1TierUpCost = 10
 var Kamount = 1
 var singularityAmount = 0
-var powerPSVisual = 0
+var powerPSArray = []
+var powerPSTotal = 0
 //Gen init
 function GeneratorL1Init() {
   for (let i = 0; i < L1TierCount; i++) {
@@ -274,7 +275,6 @@ function Kugelblitz() {
 function productionLoop(diff) {
   for (let i = 0; i < L1TierCount; i++) {
     powerPs = generatorsL1[i].amount * generatorsL1[i].mult * generatorsL1[i].Emult * generatorsL1[i].production * diff * tickMult
-    var powerPSVisual = generatorsL1[i].amount * generatorsL1[i].mult * generatorsL1[i].Emult * generatorsL1[i].production * tickMult
     power += powerPs
   }
 }
@@ -282,6 +282,13 @@ function productionLoop(diff) {
 ////GUI
 //Updating GUI
 function updateGUI() {
+  powerPSTotal = 0
+  for (let i = 0; i < L1TierCount; i++){
+    powerPSArray[i] = generatorsL1[i].amount * generatorsL1[i].mult * generatorsL1[i].Emult * generatorsL1[i].production * tickMult
+  }
+  for (let i = 0; i < L1TierCount; i++){
+    powerPSTotal += powerPSArray[i]
+  }
   // Updating Power
   document.getElementById("currency").textContent = "You have " + format(power) + " power"
   //Updating singularities
