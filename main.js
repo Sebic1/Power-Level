@@ -234,7 +234,7 @@ function L1EmpowerDelete() {
 
 //Autobuying
 function AutoBuy() {
-  for (let i = 1; i < L1TierCount+1; i++ ){ 
+  for (let i = L1TierCount+1; i > 0; i-- ){ 
     if (generatorsL1[i-1].autobuy == true && generatorsL1[i-1].autoBuyToggle == true) {
       buyGenerator(i)
     }
