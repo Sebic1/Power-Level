@@ -16,7 +16,7 @@ var saveTimer = 0
 var TVcost = 50
 var TVlevel = 0
 var powerPs = 0
-var TVmult = 1.5
+var TVmult = 3
 var L1TierUpCost = 20
 var Kamount = 1
 var singularityAmount = 0
@@ -354,9 +354,9 @@ function updateGUI() {
   }
   //TV Button
   if (L1TierCount > 5 || TVlevel > 0) document.getElementById("TVButton").classList.remove("hidden")
-  document.getElementById("TVButton").innerHTML = "TV<br>Reset empowerments and tier-ups to get:<br>A TV to consume your time<br>Upgrade:<br>Tickspeed upgrades by " + TVmult + "<br>Requires:<br>" + TVcost + " Tier 10s"
-  if (generatorsL1[9].amount < TVcost && L1TierCount < 10) { document.getElementById("TVButton").classList.add("locked") }
-  else { document.getElementById("TVButton").classList.remove("locked") }
+  document.getElementById("TVButton").innerHTML = "TV<br>Reset empowerments and tier-ups to get:<br>A TV to consume your time<br>Upgrade:<br>Tickspeed upgrades multiplied by " + TVmult + "<br>Requires:<br>" + TVcost + " Tier 10s"
+  if (L1TierCount >= 10){if (generatorsL1[9].amount >= TVcost) { document.getElementById("TVButton").classList.remove("locked") }
+  else { document.getElementById("TVButton").classList.add("locked") }}else { document.getElementById("TVButton").classList.add("locked") }
   for (let i = 0; i < L1TierCount; i++) {
   ////Kugelblitz
   if (power == Infinity) {
